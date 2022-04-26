@@ -1,0 +1,16 @@
+.text-area {
+  -fx-font-family: Consolas;
+  -fx-font-size: 14;
+  -fx-highlight-fill: #00ff00;
+  -fx-highlight-text-fill: #000000;
+  -fx-text-fill: yellow;
+  /*-fx-background-color: #000000;*/
+}
+
+.text-area .content {
+  -fx-background-color: black;
+}
+
+.text-area *.text {
+  -fx-text-alignment: right;
+}
