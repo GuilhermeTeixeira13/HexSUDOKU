@@ -14,72 +14,100 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
 public class FXMLDocumentController implements Initializable {
-    
+
     @FXML
     GridPane board;
-    
-    @FXML 
+
+    @FXML
     Button teste;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         board = createBoard(board);
-    }    
-    
+    }
+
     @FXML
-    private void handleButtonAction(ActionEvent event) {
+    private void testSolution(ActionEvent event) {
         if (event.getSource() instanceof Button) {
-            String[][] content = getContent(board);
-            for (int row = 0; row < 16; row++) {
-                for (int col = 0; col < 16; col++){
-                    System.out.print(content[row][col]+" ");
-                }
-            System.out.print("\n");
+            int[][] BoardContent = getBoardContent(board);
+            printBoard(BoardContent);
+            if(verifyIfItsFull(BoardContent)){
+                if(CheckAnswer.isValidSudoku(BoardContent))
+                    System.out.println("é válido");
+                else
+                    System.out.println("não é válido");
             }
-            System.out.println("\n\n\n");
+            else
+                System.out.println("tabuleiro incompleto");         
         }
     }
-    
-    public GridPane createBoard(GridPane board){
+
+    public void printBoard(int[][] board) {
         for (int row = 0; row < 16; row++) {
             for (int col = 0; col < 16; col++) {
-                TextField textField = createTextField();
-                textField.setText("2");
+                System.out.print(board[row][col] + " ");
+            }
+            System.out.print("\n");
+        }
+        System.out.println("\n");
+    }
+    
+    public boolean verifyIfItsFull(int[][] board) {
+        for (int row = 0; row < 16; row++) {
+            for (int col = 0; col < 16; col++) {
+                if(board[row][col] == -1)
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    public GridPane createBoard(GridPane board) {
+        int N = 16, K = 1;
+        Sudoku sudoku = new Sudoku(N, K);
+        sudoku.fillValues();
+
+        int[][] SudokuBoard = sudoku.geetBoard();
+
+        for (int row = 0; row < 16; row++) {
+            for (int col = 0; col < 16; col++) {
+                TextField textField = new TextField();
+                if (SudokuBoard[row][col] != -1) {
+                    textField.setText((Integer.toHexString(SudokuBoard[row][col])).toUpperCase());
+                    textField.setEditable(false);
+                } else {
+                    textField.setText("");
+                    textField.setEditable(true);
+                }
+
                 board.add(textField, row, col);
             }
         }
         return board;
     }
-    public String[][] getContent(GridPane board){
-        String[][] content = new String[16][16];
+
+    public int[][] getBoardContent(GridPane board) {
+        int[][] content = new int[16][16];
         for (int row = 0; row < 16; row++) {
             for (int col = 0; col < 16; col++) {
-                TextField textField = createTextField();
+                TextField textField = new TextField();
                 textField = (TextField) getNodeFromGridPane(board, row, col);
-                content[row][col] = textField.getText();
+                if (!textField.getText().equals("")) {
+                    content[row][col] = Integer.parseInt(textField.getText(), 16);
+                } else {
+                    content[row][col] = -1;
+                }
             }
         }
         return content;
     }
-    private TextField createTextField() {
-        TextField textField = new TextField();
 
-        // restrict input to integers:
-        textField.setTextFormatter(new TextFormatter<Integer>(c -> {
-            if (c.getControlNewText().matches("\\d?")) {
-                return c ;
-            } else {
-                return null ;
-            }
-        }));
-        return textField ;
-    }
     private Node getNodeFromGridPane(GridPane gridPane, int row, int col) {
-    for (Node node : gridPane.getChildren()) {
-        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
-            return node;
+        for (Node node : gridPane.getChildren()) {
+            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+                return node;
+            }
         }
+        return null;
     }
-    return null;
-}
 }

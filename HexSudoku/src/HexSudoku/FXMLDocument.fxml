@@ -52,7 +52,7 @@
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="608.0" prefWidth="248.0">
          <children>
-            <Button layoutX="159.0" layoutY="257.0" mnemonicParsing="false" onAction="#handleButtonAction" text="teste" />
+            <Button layoutX="159.0" layoutY="257.0" mnemonicParsing="false" onAction="#testSolution" text="teste" />
          </children></AnchorPane>
   </items>
 </SplitPane>
