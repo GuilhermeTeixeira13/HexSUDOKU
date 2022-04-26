@@ -1,16 +1,31 @@
-.text-area {
-  -fx-font-family: Consolas;
-  -fx-font-size: 14;
-  -fx-highlight-fill: #00ff00;
-  -fx-highlight-text-fill: #000000;
-  -fx-text-fill: yellow;
-  /*-fx-background-color: #000000;*/
+.root {
+    -fx-padding: 5px ;
 }
 
-.text-area .content {
-  -fx-background-color: black;
+.cell {
+
+    /* Defines a black border around the standard color -fx-base */
+    -fx-background-color:  black, -fx-base ;
+
+    /* By default draw the base color over the whole region, so no border visible */
+    -fx-background-insets: 0, 0 ;
+
+    -fx-padding: 5px ;
 }
 
-.text-area *.text {
-  -fx-text-alignment: right;
+.cell:right {
+    -fx-background-insets: 0, 0 1 0 0 ;
+}
+
+.cell:bottom {
+    -fx-background-insets: 0, 0 0 1 0 ;
+}
+
+.cell:right:bottom {
+    -fx-background-insets: 0, 0 1 1 0 ;
+}
+
+.cell .text-field {
+    -fx-pref-width: 3em ;
+    -fx-pref-height: 3em ;
 }
