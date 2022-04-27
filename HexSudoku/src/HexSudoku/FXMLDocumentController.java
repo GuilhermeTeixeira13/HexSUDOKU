@@ -136,9 +136,9 @@ public class FXMLDocumentController implements Initializable {
             for (int col = 0; col < 16; col++) {
                 TextField textField = new TextField();
 
-                b1.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
                     public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                        textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                        b1.focusedProperty().addListener(new ChangeListener<Boolean>() {
                             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                                 textField.setText(b1.getText());
                             }
