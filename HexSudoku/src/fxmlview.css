@@ -1,5 +1,10 @@
-.root {
-    -fx-padding: 5px ;
+.board {
+    -fx-background-color: white;
+    -fx-background-radius: 5.0;
+    -fx-background-insets: 0.0 5.0 0.0 5.0;
+    -fx-padding: 20;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
 }
 
 .cell {
@@ -26,6 +31,6 @@
 }
 
 .cell .text-field {
-    -fx-pref-width: 3em ;
-    -fx-pref-height: 3em ;
+    -fx-pref-width: 30em ;
+    -fx-pref-height: 30em ;
 }
