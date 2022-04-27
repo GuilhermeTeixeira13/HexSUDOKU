@@ -4,8 +4,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -37,6 +40,15 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     Button inicializaDificil;
+
+    @FXML
+    Button b1;
+
+    @FXML
+    Button b2;
+
+    @FXML
+    Button b3;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -123,9 +135,15 @@ public class FXMLDocumentController implements Initializable {
         for (int row = 0; row < 16; row++) {
             for (int col = 0; col < 16; col++) {
                 TextField textField = new TextField();
-                
-                textField.setOnMouseClicked(e -> {
-                    
+
+                b1.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                        textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                                textField.setText(b1.getText());
+                            }
+                        });
+                    }
                 });
 
                 textField.getStyleClass().add("cell");
@@ -195,13 +213,12 @@ public class FXMLDocumentController implements Initializable {
             System.out.println("escape got called");
         }
     }
-    
-    private char handleButtonAction(ActionEvent event) {
+
+    @FXML
+    public void handleButtonAction(ActionEvent event) {
         if (event.getSource() instanceof Button) {
             Button b = (Button) event.getSource();
-            System.out.println(b.getText().charAt(0));
-            return (b.getText().charAt(0));
+            
         }
-        return ' ';
     }
 }
