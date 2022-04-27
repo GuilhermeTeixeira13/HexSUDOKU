@@ -123,6 +123,10 @@ public class FXMLDocumentController implements Initializable {
         for (int row = 0; row < 16; row++) {
             for (int col = 0; col < 16; col++) {
                 TextField textField = new TextField();
+                
+                textField.setOnMouseClicked(e -> {
+                    
+                });
 
                 textField.getStyleClass().add("cell");
                 textField.pseudoClassStateChanged(right, col == 3 || col == 7 || col == 11);
@@ -177,7 +181,7 @@ public class FXMLDocumentController implements Initializable {
 
     public boolean isValid(String text) {
         if (text.length() == 1) {
-            if((text.charAt(0)>=48 && text.charAt(0)<=57) || (text.charAt(0)>=65 && text.charAt(0)<=70) || text.charAt(0) == 8){
+            if ((text.charAt(0) >= 48 && text.charAt(0) <= 57) || (text.charAt(0) >= 65 && text.charAt(0) <= 70) || text.charAt(0) == 8) {
                 return true;
             }
             return false;
@@ -190,5 +194,14 @@ public class FXMLDocumentController implements Initializable {
         if (keyCode == KeyCode.ESCAPE) {
             System.out.println("escape got called");
         }
+    }
+    
+    private char handleButtonAction(ActionEvent event) {
+        if (event.getSource() instanceof Button) {
+            Button b = (Button) event.getSource();
+            System.out.println(b.getText().charAt(0));
+            return (b.getText().charAt(0));
+        }
+        return ' ';
     }
 }
