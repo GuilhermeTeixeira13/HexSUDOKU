@@ -52,7 +52,10 @@
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="608.0" prefWidth="248.0">
          <children>
-            <Button layoutX="159.0" layoutY="257.0" mnemonicParsing="false" onAction="#testSolution" text="teste" />
+            <Button layoutX="113.0" layoutY="365.0" mnemonicParsing="false" onAction="#testSolution" prefHeight="25.0" prefWidth="175.0" text="Test Solution" />
+            <Button fx:id="inicializaFacil" layoutX="159.0" layoutY="195.0" mnemonicParsing="false" onAction="#inicializaFacil" prefHeight="25.0" prefWidth="83.0" text="Gerar Fácil" />
+            <Button fx:id="inicializaMedio" layoutX="159.0" layoutY="232.0" mnemonicParsing="false" onAction="#inicializaMedio" text="Gerar Médio" />
+            <Button fx:id="inicializaDificil" layoutX="159.0" layoutY="271.0" mnemonicParsing="false" onAction="#inicializaDificl" prefHeight="25.0" prefWidth="83.0" text="Gerar Difícil" />
          </children></AnchorPane>
   </items>
 </SplitPane>

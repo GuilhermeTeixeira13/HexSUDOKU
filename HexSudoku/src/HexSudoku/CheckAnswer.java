@@ -16,8 +16,8 @@ public class CheckAnswer {
 
                 // Check if board[i][j]
                 // lies in the range
-                if (board[i][j] <= 0
-                        || board[i][j] > 9) {
+                if (board[i][j] < 0
+                        || board[i][j] > N) {
                     return false;
                 }
             }
@@ -91,19 +91,19 @@ public class CheckAnswer {
 
         // Traverse each block of
         // size 3 * 3 in board[][] array
-        for (int i = 0; i < N - 2; i += 3) {
+        for (int i = 0; i < N - 3; i += 4) {
 
             // j stores first column of
             // each 3 * 3 block
-            for (int j = 0; j < N - 2; j += 3) {
+            for (int j = 0; j < N - 3; j += 4) {
 
                 // Initialize unique[]
                 // array to false
                 Arrays.fill(unique, false);
 
                 // Traverse current block
-                for (int k = 0; k < 3; k++) {
-                    for (int l = 0; l < 3; l++) {
+                for (int k = 0; k < 4; k++) {
+                    for (int l = 0; l < 4; l++) {
 
                         // Stores row number
                         // of current block

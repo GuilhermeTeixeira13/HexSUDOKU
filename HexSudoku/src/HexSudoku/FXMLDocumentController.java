@@ -20,26 +20,52 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     Button teste;
+    
+    @FXML
+    Button inicializaFacil;
+
+    @FXML
+    Button inicializaMedio;
+
+    @FXML
+    Button inicializaDificil;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        board = createBoard(board);
+   
     }
-
+    
     @FXML
     private void testSolution(ActionEvent event) {
         if (event.getSource() instanceof Button) {
             int[][] BoardContent = getBoardContent(board);
-            printBoard(BoardContent);
             if(verifyIfItsFull(BoardContent)){
                 if(CheckAnswer.isValidSudoku(BoardContent))
-                    System.out.println("é válido");
+                    System.out.println("Solution accepted!");
                 else
-                    System.out.println("não é válido");
+                    System.out.println("Solution unaccepted!");
             }
             else
-                System.out.println("tabuleiro incompleto");         
+                System.out.println("Board not completed yet!"); 
+            printBoard(BoardContent);
         }
+    }
+    
+    @FXML
+    private void inicializaFacil(ActionEvent event) {
+         board = createBoard(board, 1);
+    }
+    
+
+    @FXML
+    private void inicializaMedio(ActionEvent event) {
+         board = createBoard(board, 2);
+    }
+    
+    @FXML
+    private void inicializaDificl(ActionEvent event) {
+         board = createBoard(board, 3);
     }
 
     public void printBoard(int[][] board) {
@@ -49,7 +75,6 @@ public class FXMLDocumentController implements Initializable {
             }
             System.out.print("\n");
         }
-        System.out.println("\n");
     }
     
     public boolean verifyIfItsFull(int[][] board) {
@@ -62,12 +87,27 @@ public class FXMLDocumentController implements Initializable {
         return true;
     }
 
-    public GridPane createBoard(GridPane board) {
-        int N = 16, K = 1;
+    public GridPane createBoard(GridPane board, int dif) {
+        int N = 16, K=0, clues=0, min=0, max=0;
+        
+        if(dif == 1){
+            max = 143;
+            min = 111;
+        }
+        if(dif == 2){
+            max = 109;
+            min = 99;
+        }
+        if(dif == 3){
+            max = 97;
+            min = 86;
+        }
+        clues = (int)(Math.random() * ((max - min) + 1)) + min;
+        K = (N*N)-clues;
+        
         Sudoku sudoku = new Sudoku(N, K);
         sudoku.fillValues();
-
-        int[][] SudokuBoard = sudoku.geetBoard();
+        int[][] SudokuBoard = sudoku.getBoard();
 
         for (int row = 0; row < 16; row++) {
             for (int col = 0; col < 16; col++) {
@@ -79,10 +119,12 @@ public class FXMLDocumentController implements Initializable {
                     textField.setText("");
                     textField.setEditable(true);
                 }
-
-                board.add(textField, row, col);
+                board.add(textField, col, row);
             }
         }
+        System.out.println("Board that you need to solve (dif="+dif+", Clues="+clues+"):");
+        printBoard(SudokuBoard);
+        System.out.println();
         return board;
     }
 
