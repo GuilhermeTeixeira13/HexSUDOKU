@@ -155,6 +155,7 @@ public class FXMLDocumentController implements Initializable {
 
                 if (SudokuBoard[linhas][colunas] != -1) {
                     casa.setText((Integer.toHexString(SudokuBoard[linhas][colunas])).toUpperCase());
+                    casa.setStyle("-fx-control-inner-background: rgb(196,243,255);-fx-border-color: black;");
                     casa.setEditable(false);
                 } else {
                     casa.setText("");
