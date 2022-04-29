@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 
@@ -149,12 +151,13 @@ public class FXMLDocumentController implements Initializable {
 
         for (int linhas = 0; linhas < 16; linhas++) {
             for (int colunas = 0; colunas < 16; colunas++) {
-                Label casa = new Label();
+                TextField casa = new TextField();
                 if (SudokuBoard[linhas][colunas] != -1) {
                     casa.setText((Integer.toHexString(SudokuBoard[linhas][colunas])).toUpperCase());
-
+                    casa.setEditable(false);
                 } else {
                     casa.setText("");
+                    casa.setEditable(false);
                 }
                 board.add(casa, colunas, linhas);
 
@@ -186,8 +189,8 @@ public class FXMLDocumentController implements Initializable {
         int[][] content = new int[16][16];
         for (int row = 0; row < 16; row++) {
             for (int col = 0; col < 16; col++) {
-                Label casa = new Label();
-                casa = (Label) getNodeFromGridPane(board, row, col);
+                TextField casa = new TextField();
+                casa = (TextField) getNodeFromGridPane(board, row, col);
                 if (!casa.getText().equals("")) {
                     content[row][col] = Integer.parseInt(casa.getText(), 16);
                 } else {

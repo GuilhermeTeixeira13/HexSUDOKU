@@ -1,20 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <GridPane layoutX="48.0" layoutY="93.0" prefHeight="348.0" prefWidth="488.0">
+<BorderPane prefHeight="654.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HexSudoku2.FXMLDocumentController">
+   <bottom>
+      <GridPane prefHeight="128.0" prefWidth="833.0">
         <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="562.0" minWidth="10.0" prefWidth="532.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="411.0" minWidth="10.0" prefWidth="301.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="btn1" mnemonicParsing="false" prefHeight="45.0" prefWidth="43.0" text="1" />
+                  <Button fx:id="btn2" mnemonicParsing="false" prefHeight="45.0" prefWidth="43.0" text="2" GridPane.columnIndex="1" />
+                  <Button fx:id="btn3" mnemonicParsing="false" prefHeight="45.0" prefWidth="43.0" text="3" GridPane.columnIndex="2" />
+                  <Button fx:id="btn4" mnemonicParsing="false" prefHeight="45.0" prefWidth="43.0" text="4" GridPane.columnIndex="3" />
+                  <Button fx:id="btn5" mnemonicParsing="false" prefHeight="45.0" prefWidth="43.0" text="5" GridPane.columnIndex="4" />
+                  <Button fx:id="btn6" mnemonicParsing="false" prefHeight="45.0" prefWidth="43.0" text="6" GridPane.columnIndex="5" />
+                  <Button fx:id="btn7" mnemonicParsing="false" prefHeight="45.0" prefWidth="43.0" text="7" GridPane.columnIndex="6" />
+                  <Button fx:id="btn8" mnemonicParsing="false" prefHeight="45.0" prefWidth="43.0" text="8" GridPane.columnIndex="7" />
+                  <Button fx:id="btn9" mnemonicParsing="false" prefHeight="45.0" prefWidth="43.0" text="9" GridPane.columnIndex="8" />
+                  <Button fx:id="btn0" mnemonicParsing="false" prefHeight="45.0" prefWidth="43.0" text="0" GridPane.columnIndex="9" />
+               </children>
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </GridPane>
+            <GridPane GridPane.rowIndex="1">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="btnF" mnemonicParsing="false" prefHeight="55.0" prefWidth="67.0" text="F" GridPane.columnIndex="5" />
+                  <Button fx:id="btnD" mnemonicParsing="false" prefHeight="55.0" prefWidth="66.0" text="D" GridPane.columnIndex="3" />
+                  <Button fx:id="btnE" mnemonicParsing="false" prefHeight="55.0" prefWidth="66.0" text="E" GridPane.columnIndex="4" />
+                  <Button fx:id="btnC" mnemonicParsing="false" prefHeight="55.0" prefWidth="66.0" text="C" GridPane.columnIndex="2" />
+                  <Button fx:id="btnB" mnemonicParsing="false" prefHeight="55.0" prefWidth="66.0" text="B" GridPane.columnIndex="1" />
+                  <Button fx:id="btnA" mnemonicParsing="false" prefHeight="55.0" prefWidth="66.0" text="A" />
+               </children>
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" />
+               </padding>
+            </GridPane>
+            <Button fx:id="btnTestSolution" mnemonicParsing="false" onAction="#testSolution" prefHeight="47.0" prefWidth="416.0" text="TEST SOLUTION" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="20.0" right="20.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnTestSolution1" mnemonicParsing="false" onAction="#testSolution" prefHeight="47.0" prefWidth="416.0" text="RECORDS" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="20.0" right="20.0" top="20.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
+   </bottom>
+   <top>
+      <FlowPane prefHeight="91.0" prefWidth="833.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnpause" mnemonicParsing="false" prefHeight="35.0" prefWidth="65.0" text="PAUSE">
+               <FlowPane.margin>
+                  <Insets left="240.0" top="20.0" />
+               </FlowPane.margin>
+            </Button>
+            <Label fx:id="labelCronometro" prefHeight="40.0" prefWidth="70.0" text="Cronómetro">
+               <FlowPane.margin>
+                  <Insets left="10.0" top="20.0" />
+               </FlowPane.margin>
+            </Label>
+            <Label fx:id="labelUsername" prefHeight="27.0" prefWidth="58.0" text="Username">
+               <FlowPane.margin>
+                  <Insets left="320.0" top="20.0" />
+               </FlowPane.margin>
+            </Label>
+         </children>
+      </FlowPane>
+   </top>
+   <center>
+      <GridPane fx:id="board" prefHeight="433.0" prefWidth="588.0" BorderPane.alignment="CENTER">
+         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -28,51 +134,59 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <BorderPane.margin>
+            <Insets bottom="30.0" left="40.0" right="40.0" />
+         </BorderPane.margin>
+      </GridPane>
+   </center>
+   <right>
+      <GridPane prefHeight="438.0" prefWidth="201.0">
+        <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
+         <children>
+            <Button fx:id="btnDificil" mnemonicParsing="false" onAction="#inicializaDificil" prefHeight="56.0" prefWidth="161.0" text="Dificil" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="20.0" right="40.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnMedio" mnemonicParsing="false" onAction="#inicializaMedio" prefHeight="56.0" prefWidth="161.0" text="Médio" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="20.0" right="40.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnFacil" mnemonicParsing="false" onAction="#inicializaFacil" prefHeight="56.0" prefWidth="161.0" text="Fácil">
+               <GridPane.margin>
+                  <Insets left="20.0" right="40.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
       </GridPane>
-      <Separator layoutX="576.0" orientation="VERTICAL" prefHeight="533.0" prefWidth="21.0" />
-      <Button layoutX="382.0" layoutY="461.0" mnemonicParsing="false" text="9" />
-      <Button layoutX="124.0" layoutY="485.0" mnemonicParsing="false" text="C" />
-      <Button layoutX="124.0" layoutY="461.0" mnemonicParsing="false" text="2" />
-      <Button layoutX="87.0" layoutY="461.0" mnemonicParsing="false" text="1" />
-      <Button layoutX="163.0" layoutY="461.0" mnemonicParsing="false" text="3" />
-      <Button layoutX="201.0" layoutY="461.0" mnemonicParsing="false" text="4" />
-      <Button layoutX="242.0" layoutY="461.0" mnemonicParsing="false" text="5" />
-      <Button layoutX="280.0" layoutY="461.0" mnemonicParsing="false" text="6" />
-      <Button layoutX="55.0" layoutY="485.0" mnemonicParsing="false" text="A" />
-      <Button layoutX="55.0" layoutY="461.0" mnemonicParsing="false" text="0" />
-      <Button layoutX="349.0" layoutY="461.0" mnemonicParsing="false" text="8" />
-      <Button layoutX="318.0" layoutY="461.0" mnemonicParsing="false" text="7" />
-      <Button layoutX="87.0" layoutY="485.0" mnemonicParsing="false" text="B" />
-      <Button layoutX="163.0" layoutY="485.0" mnemonicParsing="false" text="D" />
-      <Button layoutX="202.0" layoutY="485.0" mnemonicParsing="false" text="E" />
-      <Button layoutX="243.0" layoutY="485.0" mnemonicParsing="false" text="F" />
-      <Button layoutX="368.0" layoutY="28.0" mnemonicParsing="false" text="PAUSE" />
-      <Label layoutX="460.0" layoutY="21.0" prefHeight="40.0" prefWidth="96.0" text="Cronómetro" />
-      <Label layoutX="642.0" layoutY="12.0" text="Username" />
-      <Button layoutX="626.0" layoutY="117.0" mnemonicParsing="false" text="Fácil" />
-      <Button layoutX="626.0" layoutY="184.0" mnemonicParsing="false" text="Médio" />
-      <Button layoutX="626.0" layoutY="255.0" mnemonicParsing="false" text="Dificil" />
-      <Button layoutX="649.0" layoutY="367.0" mnemonicParsing="false" text="Record" />
-      <Button layoutX="595.0" layoutY="434.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="119.0" text="Test Solution" />
-   </children>
-</AnchorPane>
+   </right>
+</BorderPane>
