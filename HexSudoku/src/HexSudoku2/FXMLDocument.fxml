@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="654.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HexSudoku2.FXMLDocumentController">
+<BorderPane prefHeight="654.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HexSudoku2.FXMLDocumentController">
    <bottom>
       <GridPane prefHeight="128.0" prefWidth="833.0">
         <columnConstraints>
@@ -88,7 +88,7 @@
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnTestSolution1" mnemonicParsing="false" onAction="#testSolution" prefHeight="47.0" prefWidth="416.0" text="RECORDS" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="btnRecord" mnemonicParsing="false" onAction="#testSolution" prefHeight="47.0" prefWidth="416.0" text="RECORDS" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="30.0" left="20.0" right="20.0" top="20.0" />
                </GridPane.margin>
