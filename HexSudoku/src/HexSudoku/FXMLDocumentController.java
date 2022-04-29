@@ -215,10 +215,11 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    public void handleButtonAction(ActionEvent event) {
+    public Button handleButtonAction(ActionEvent event) {
         if (event.getSource() instanceof Button) {
-            Button b = (Button) event.getSource();
-            
+            Button b = (Button) event.getSource();    
+            return b;
         }
+        return null;
     }
 }
