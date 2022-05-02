@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 
 public class FXMLDocumentController implements Initializable {
 
@@ -148,14 +150,22 @@ public class FXMLDocumentController implements Initializable {
         sudoku.fillValues();
 
         int[][] SudokuBoard = sudoku.getBoard();
+        
+        PseudoClass right = PseudoClass.getPseudoClass("right");
+        PseudoClass bottom = PseudoClass.getPseudoClass("bottom");
 
-        for (int linhas = 0; linhas < 16; linhas++) {
-            for (int colunas = 0; colunas < 16; colunas++) {
+        for (int colunas = 0; colunas < 16; colunas++) {
+            for (int linhas = 0; linhas < 16; linhas++) {
                 TextField casa = new TextField();
+                StackPane cell = new StackPane();
+                cell.getStyleClass().add("cell");
+                cell.pseudoClassStateChanged(right, colunas == 3 || colunas == 7 || colunas == 11);
+                cell.pseudoClassStateChanged(bottom, linhas == 3 || linhas == 7 || linhas == 11);
+                cell.getChildren().add(casa);
 
                 if (SudokuBoard[linhas][colunas] != -1) {
                     casa.setText((Integer.toHexString(SudokuBoard[linhas][colunas])).toUpperCase());
-                    casa.setStyle("-fx-control-inner-background: rgb(196,243,255);-fx-border-color: black;");
+                    casa.setStyle("-fx-control-inner-background: rgb(196,243,255);");
                     casa.setEditable(false);
                 } else {
                     casa.setText("");
@@ -316,7 +326,7 @@ public class FXMLDocumentController implements Initializable {
                     });
                 }
 
-                board.add(casa, colunas, linhas);
+                board.add(cell, colunas, linhas);
 
             }
         }
@@ -347,7 +357,9 @@ public class FXMLDocumentController implements Initializable {
         for (int row = 0; row < 16; row++) {
             for (int col = 0; col < 16; col++) {
                 TextField casa = new TextField();
-                casa = (TextField) getNodeFromGridPane(board, row, col);
+                StackPane cell = new StackPane();
+                cell = (StackPane) getNodeFromGridPane(board, row, col);
+                casa = (TextField) cell.getChildren().get(0);
                 if (!casa.getText().equals("")) {
                     content[row][col] = Integer.parseInt(casa.getText(), 16);
                 } else {
