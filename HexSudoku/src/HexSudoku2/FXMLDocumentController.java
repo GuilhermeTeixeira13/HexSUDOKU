@@ -360,7 +360,7 @@ public class FXMLDocumentController implements Initializable {
 
     private Node getNodeFromGridPane(GridPane gridPane, int row, int col) {
         for (Node node : gridPane.getChildren()) {
-            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+            if (gridPane.getColumnIndex(node) == col && gridPane.getRowIndex(node) == row) {
                 return node;
             }
         }

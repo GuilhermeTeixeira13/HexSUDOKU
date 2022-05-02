@@ -1,36 +1,7 @@
-.board {
-    -fx-background-color: white;
-    -fx-background-radius: 5.0;
-    -fx-background-insets: 0.0 5.0 0.0 5.0;
-    -fx-padding: 20;
-    -fx-hgap: 10;
-    -fx-vgap: 10;
-}
-
-.cell {
-
-    /* Defines a black border around the standard color -fx-base */
-    -fx-background-color:  black, -fx-base ;
-
-    /* By default draw the base color over the whole region, so no border visible */
-    -fx-background-insets: 0, 0 ;
-
-    -fx-padding: 5px ;
-}
-
-.cell:right {
-    -fx-background-insets: 0, 0 1 0 0 ;
-}
-
-.cell:bottom {
-    -fx-background-insets: 0, 0 0 1 0 ;
-}
-
-.cell:right:bottom {
-    -fx-background-insets: 0, 0 1 1 0 ;
-}
-
-.cell .text-field {
-    -fx-pref-width: 30em ;
-    -fx-pref-height: 30em ;
+.button:hover {
+    -fx-background-color:lime;
+    -fx-background-radius:0;
+    -fx-border-color:white;
+    -fx-border-width: 0 3 3 0;
+    -fx-background-insets: 0;
 }
