@@ -92,6 +92,9 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     Button btnTestSolution;
+    
+    @FXML
+    Button btnDelete;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -320,6 +323,16 @@ public class FXMLDocumentController implements Initializable {
                             casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
                                 public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                                     casa.setText(btnF.getText());
+                                }
+                            });
+                        }
+                    });
+                    
+                    btnDelete.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                                    casa.setText("");
                                 }
                             });
                         }
