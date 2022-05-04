@@ -121,9 +121,11 @@ public class FXMLDocumentController implements Initializable {
     private void pauseTimer(ActionEvent event) {
         if (timeline.getStatus().equals(Animation.Status.PAUSED)) {
             timeline.play();
+            board.setVisible(true);
             btnpause.setText("Pause");
         } else if (timeline.getStatus().equals(Animation.Status.RUNNING)) {
             timeline.pause();
+            board.setVisible(false);
             btnpause.setText("Continue");
         }
     }

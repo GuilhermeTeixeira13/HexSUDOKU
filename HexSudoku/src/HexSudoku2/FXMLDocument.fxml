@@ -175,7 +175,7 @@
          <children>
             <Button fx:id="btnpause" mnemonicParsing="false" onAction="#pauseTimer" prefHeight="35.0" prefWidth="94.0" style="-fx-background-color: rgb(82, 82, 82);" text="PAUSE" textFill="WHITE">
                <FlowPane.margin>
-                  <Insets left="240.0" top="10.0" />
+                  <Insets bottom="5.0" left="240.0" top="5.0" />
                </FlowPane.margin>
                <font>
                   <Font name="Arial Black" size="12.0" />
@@ -183,7 +183,7 @@
             </Button>
             <Label fx:id="labelCronometro" prefHeight="40.0" prefWidth="126.0" text="CRONÓMETRO">
                <FlowPane.margin>
-                  <Insets left="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="10.0" top="5.0" />
                </FlowPane.margin>
                <font>
                   <Font name="Arial Black" size="15.0" />
