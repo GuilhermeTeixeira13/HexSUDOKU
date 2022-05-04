@@ -97,7 +97,10 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     Button btnTestSolution;
-    
+ 
+    @FXML
+    Button btnDelete;
+  
     Timeline timeline;
     LocalTime time = LocalTime.parse("00:00:00");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -350,6 +353,16 @@ public class FXMLDocumentController implements Initializable {
                             casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
                                 public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                                     casa.setText(btnF.getText());
+                                }
+                            });
+                        }
+                    });
+                    
+                    btnDelete.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                                    casa.setText("");
                                 }
                             });
                         }
