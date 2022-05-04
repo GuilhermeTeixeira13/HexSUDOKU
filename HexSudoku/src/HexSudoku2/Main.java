@@ -29,8 +29,9 @@ public class Main extends Application {
         
     }
     
-    public void changeScene(String fxml) throws IOException {
+    public void changeScene(String fxml, String title) throws IOException {
         Parent pane = FXMLLoader.load(getClass().getResource(fxml));
+        stg.setTitle(title);
         stg.getScene().setRoot(pane);
     }
 

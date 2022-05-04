@@ -136,7 +136,7 @@ public class FXMLDocumentController implements Initializable {
         
         if(txtFieldUsername.getText().toString().equals("javacoding") && passFieldPassword.getText().toString().equals("123")) {
             labelAvisoLogin.setText("Sucess!");
-            m.changeScene("FXMLDocument.fxml");
+            m.changeScene("FXMLDocument.fxml", "Sudoku Game");
         }
         
         else if(txtFieldUsername.getText().isEmpty() && passFieldPassword.getText().isEmpty()) {
@@ -151,7 +151,7 @@ public class FXMLDocumentController implements Initializable {
     
     public void userLogOut(ActionEvent event) throws IOException {
           Main m = new Main();
-          m.changeScene("Login.fxml");
+          m.changeScene("Login.fxml", "Login");
     }
     
     /*------*/
