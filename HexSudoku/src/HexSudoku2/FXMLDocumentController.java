@@ -30,12 +30,6 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     GridPane board;
-
-    /*@FXML
-    ToggleButton btn0;
-
-    @FXML
-    ToggleButton btn1;*/
     
     @FXML
     Button btn0;
@@ -200,10 +194,6 @@ public class FXMLDocumentController implements Initializable {
         PseudoClass right = PseudoClass.getPseudoClass("right");
         PseudoClass bottom = PseudoClass.getPseudoClass("bottom");
 
-        /*ToggleGroup toggleGroup = new ToggleGroup();
-        btn0.setToggleGroup(toggleGroup);
-        btn1.setToggleGroup(toggleGroup);*/
-
         for (int colunas = 0; colunas < 16; colunas++) {
             for (int linhas = 0; linhas < 16; linhas++) {
                 TextField casa = new TextField();
@@ -220,15 +210,6 @@ public class FXMLDocumentController implements Initializable {
                 } else {
                     casa.setText("");
                     casa.setEditable(false);
-
-                    /*toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-                        casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                ToggleButton teste = (ToggleButton) toggleGroup.getSelectedToggle();
-                                casa.setText(teste.getText());
-                            }
-                        });
-                    });*/
 
                     PauseTransition transition = new PauseTransition(Duration.seconds(1));
                     transition.setOnFinished(event -> btn1.setStyle("-fx-background-color: rgb(82, 82, 82)"));
