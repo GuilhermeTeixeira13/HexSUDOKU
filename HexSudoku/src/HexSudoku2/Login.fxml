@@ -4,23 +4,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: rgb(186, 222, 252);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HexSudoku2.FXMLDocumentController">
    <left>
-      <AnchorPane prefHeight="400.0" prefWidth="239.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="336.0" fitWidth="171.0" layoutX="43.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Ambiente%20de%20Trabalho/sudokuLoginLogo.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
+      <AnchorPane prefHeight="400.0" prefWidth="239.0" BorderPane.alignment="CENTER" />
    </left>
    <right>
       <AnchorPane prefHeight="400.0" prefWidth="474.0" BorderPane.alignment="CENTER">
