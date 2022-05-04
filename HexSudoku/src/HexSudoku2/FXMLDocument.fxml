@@ -167,10 +167,13 @@
    <top>
       <FlowPane prefHeight="14.0" prefWidth="933.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnpause" mnemonicParsing="false" prefHeight="35.0" prefWidth="65.0" text="PAUSE">
+            <Button fx:id="btnpause" mnemonicParsing="false" onAction="#pauseTimer" prefHeight="35.0" prefWidth="94.0" style="-fx-background-color: rgb(82, 82, 82);" text="PAUSE" textFill="WHITE">
                <FlowPane.margin>
                   <Insets left="240.0" top="10.0" />
                </FlowPane.margin>
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
             </Button>
             <Label fx:id="labelCronometro" prefHeight="40.0" prefWidth="126.0" text="CRONÓMETRO">
                <FlowPane.margin>

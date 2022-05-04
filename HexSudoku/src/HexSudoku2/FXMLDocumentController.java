@@ -1,20 +1,25 @@
 package HexSudoku2;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.css.PseudoClass;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import java.net.URL;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ResourceBundle;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 public class FXMLDocumentController implements Initializable {
 
@@ -92,10 +97,32 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     Button btnTestSolution;
+    
+    Timeline timeline;
+    LocalTime time = LocalTime.parse("00:00:00");
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         board.getStyleClass().add("board");
+        timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> incrementTime()));
+        timeline.setCycleCount(Animation.INDEFINITE);
+    }
+    
+    private void incrementTime() {
+        time = time.plusSeconds(1);
+        labelCronometro.setText(time.format(dtf));
+    }
+    
+    @FXML
+    private void pauseTimer(ActionEvent event) {
+        if (timeline.getStatus().equals(Animation.Status.PAUSED)) {
+            timeline.play();
+            btnpause.setText("Pause");
+        } else if (timeline.getStatus().equals(Animation.Status.RUNNING)) {
+            timeline.pause();
+            btnpause.setText("Continue");
+        }
     }
 
     @FXML
@@ -111,16 +138,19 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     public void inicializaFacil(ActionEvent event) {
         board = createBoard(board, 1);
+        timeline.play();
     }
 
     @FXML
     public void inicializaMedio(ActionEvent event) {
         board = createBoard(board, 2);
+        timeline.play();
     }
 
     @FXML
     public void inicializaDificil(ActionEvent event) {
         board = createBoard(board, 3);
+        timeline.play();
     }
 
     @FXML
