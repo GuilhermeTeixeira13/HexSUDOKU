@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -104,6 +105,14 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     Button btnBackHome;
     
+    @FXML
+    TextField txtFieldUsername;
+    
+    @FXML
+    PasswordField passFieldPassword;
+    
+    @FXML
+    Label labelAvisoLogin;
     
     private Stage stage;
     private Scene scene;
@@ -115,23 +124,38 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
     
-    @FXML
-    public void switchToLogin(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    /*------*/
+    
+    // Login
+    public void userLogin(ActionEvent event) throws IOException {
+        checkLogin();
     }
     
-    @FXML
-    public void switchToSudoku(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void checkLogin() throws IOException {
+        Main m = new Main();
+        
+        if(txtFieldUsername.getText().toString().equals("javacoding") && passFieldPassword.getText().toString().equals("123")) {
+            labelAvisoLogin.setText("Sucess!");
+            m.changeScene("FXMLDocument.fxml");
+        }
+        
+        else if(txtFieldUsername.getText().isEmpty() && passFieldPassword.getText().isEmpty()) {
+            labelAvisoLogin.setText("Please enter your data.");
+        }
+        
+        else {
+            labelAvisoLogin.setText("Wrong username or password!");
+        }
     }
+    
+    
+    public void userLogOut(ActionEvent event) throws IOException {
+          Main m = new Main();
+          m.changeScene("Login.fxml");
+    }
+    
+    /*------*/
+    
 
     @FXML
     public void printBoard(int[][] board) {

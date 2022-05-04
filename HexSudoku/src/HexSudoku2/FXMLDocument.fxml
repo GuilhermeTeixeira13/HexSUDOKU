@@ -188,7 +188,7 @@
                   <Font name="Arial Black" size="15.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onAction="#switchToLogin" prefHeight="19.0" prefWidth="48.0" style="-fx-background-color: rgb(186, 222, 252); -fx-border-color: white;" text="⌂">
+            <Button fx:id="btnBackHome" mnemonicParsing="false" onAction="#userLogOut" prefHeight="19.0" prefWidth="48.0" style="-fx-background-color: rgb(186, 222, 252); -fx-border-color: white;" text="⌂">
                <font>
                   <Font name="Arial Black" size="18.0" />
                </font>
