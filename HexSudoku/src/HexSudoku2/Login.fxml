@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -12,11 +14,11 @@
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="239.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="16.0" layoutY="8.0" prefHeight="307.0" prefWidth="206.0" text="Sudoku Game" textFill="WHITE">
-               <font>
-                  <Font name="Verdana Bold" size="24.0" />
-               </font>
-            </Label>
+            <ImageView fitHeight="336.0" fitWidth="171.0" layoutX="43.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../Ambiente%20de%20Trabalho/sudokuLoginLogo.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </left>

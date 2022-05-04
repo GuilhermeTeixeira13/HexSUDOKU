@@ -101,6 +101,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     Button btnLogin;
     
+    @FXML
+    Button btnBackHome;
+    
     
     private Stage stage;
     private Scene scene;
