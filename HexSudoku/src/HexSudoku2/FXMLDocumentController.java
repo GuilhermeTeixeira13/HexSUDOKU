@@ -13,12 +13,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.beans.InvalidationListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.util.Duration;
 
 public class FXMLDocumentController implements Initializable {
@@ -26,6 +31,12 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     GridPane board;
 
+    /*@FXML
+    ToggleButton btn0;
+
+    @FXML
+    ToggleButton btn1;*/
+    
     @FXML
     Button btn0;
 
@@ -97,10 +108,10 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     Button btnTestSolution;
- 
+
     @FXML
     Button btnDelete;
-  
+
     Timeline timeline;
     LocalTime time = LocalTime.parse("00:00:00");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -111,12 +122,12 @@ public class FXMLDocumentController implements Initializable {
         timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> incrementTime()));
         timeline.setCycleCount(Animation.INDEFINITE);
     }
-    
+
     private void incrementTime() {
         time = time.plusSeconds(1);
         labelCronometro.setText(time.format(dtf));
     }
-    
+
     @FXML
     private void pauseTimer(ActionEvent event) {
         if (timeline.getStatus().equals(Animation.Status.PAUSED)) {
@@ -185,9 +196,13 @@ public class FXMLDocumentController implements Initializable {
         sudoku.fillValues();
 
         int[][] SudokuBoard = sudoku.getBoard();
-        
+
         PseudoClass right = PseudoClass.getPseudoClass("right");
         PseudoClass bottom = PseudoClass.getPseudoClass("bottom");
+
+        /*ToggleGroup toggleGroup = new ToggleGroup();
+        btn0.setToggleGroup(toggleGroup);
+        btn1.setToggleGroup(toggleGroup);*/
 
         for (int colunas = 0; colunas < 16; colunas++) {
             for (int linhas = 0; linhas < 16; linhas++) {
@@ -206,6 +221,33 @@ public class FXMLDocumentController implements Initializable {
                     casa.setText("");
                     casa.setEditable(false);
 
+                    /*toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+                        casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                                ToggleButton teste = (ToggleButton) toggleGroup.getSelectedToggle();
+                                casa.setText(teste.getText());
+                            }
+                        });
+                    });*/
+
+                    PauseTransition transition = new PauseTransition(Duration.seconds(1));
+                    transition.setOnFinished(event -> btn1.setStyle("-fx-background-color: rgb(82, 82, 82)"));
+                    btn1.setOnMouseClicked(event -> {
+                        event.consume();
+                        btn1.setStyle("-fx-background-color: red");
+                        transition.playFromStart();
+                    });
+
+                    
+                    btn0.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                                    casa.setText(btn0.getText());
+                                }
+                            });
+                        }
+                    });
                     btn1.focusedProperty().addListener(new ChangeListener<Boolean>() {
                         public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                             casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -296,15 +338,6 @@ public class FXMLDocumentController implements Initializable {
                             });
                         }
                     });
-                    btn0.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btn0.getText());
-                                }
-                            });
-                        }
-                    });
                     btnA.focusedProperty().addListener(new ChangeListener<Boolean>() {
                         public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                             casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -359,7 +392,7 @@ public class FXMLDocumentController implements Initializable {
                             });
                         }
                     });
-                    
+
                     btnDelete.focusedProperty().addListener(new ChangeListener<Boolean>() {
                         public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                             casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -434,5 +467,4 @@ public class FXMLDocumentController implements Initializable {
         }
         return true;
     }
-
 }
