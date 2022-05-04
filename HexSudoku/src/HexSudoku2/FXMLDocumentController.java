@@ -98,6 +98,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     Button btnTestSolution;
     
+    @FXML
+    Button btnLogin;
+    
     
     private Stage stage;
     private Scene scene;
