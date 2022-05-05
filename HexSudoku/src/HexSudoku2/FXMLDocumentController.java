@@ -6,10 +6,24 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.css.PseudoClass;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import java.net.URL;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ResourceBundle;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
+import javafx.beans.InvalidationListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,12 +35,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.util.Duration;
 
 public class FXMLDocumentController implements Initializable {
 
     @FXML
     GridPane board;
-
+    
     @FXML
     Button btn0;
 
@@ -120,8 +139,36 @@ public class FXMLDocumentController implements Initializable {
     
 
 
+    @FXML
+    Button btnDelete;
+
+    Timeline timeline;
+    LocalTime time = LocalTime.parse("00:00:00");
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        board.getStyleClass().add("board");
+        timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> incrementTime()));
+        timeline.setCycleCount(Animation.INDEFINITE);
+    }
+
+    private void incrementTime() {
+        time = time.plusSeconds(1);
+        labelCronometro.setText(time.format(dtf));
+    }
+
+    @FXML
+    private void pauseTimer(ActionEvent event) {
+        if (timeline.getStatus().equals(Animation.Status.PAUSED)) {
+            timeline.play();
+            board.setVisible(true);
+            btnpause.setText("Pause");
+        } else if (timeline.getStatus().equals(Animation.Status.RUNNING)) {
+            timeline.pause();
+            board.setVisible(false);
+            btnpause.setText("Continue");
+        }
     }
     
     /*------*/
@@ -170,16 +217,19 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     public void inicializaFacil(ActionEvent event) {
         board = createBoard(board, 1);
+        timeline.play();
     }
 
     @FXML
     public void inicializaMedio(ActionEvent event) {
         board = createBoard(board, 2);
+        timeline.play();
     }
 
     @FXML
     public void inicializaDificil(ActionEvent event) {
         board = createBoard(board, 3);
+        timeline.play();
     }
 
     @FXML
@@ -205,11 +255,11 @@ public class FXMLDocumentController implements Initializable {
 
         espacosBranco = (N * N) - pistas;
 
-        Sudoku sudoku = new Sudoku(N, espacosBranco);
+        Sudoku sudoku = new Sudoku(N, 1);
         sudoku.fillValues();
 
         int[][] SudokuBoard = sudoku.getBoard();
-        
+
         PseudoClass right = PseudoClass.getPseudoClass("right");
         PseudoClass bottom = PseudoClass.getPseudoClass("bottom");
 
@@ -230,6 +280,23 @@ public class FXMLDocumentController implements Initializable {
                     casa.setText("");
                     casa.setEditable(false);
 
+                    PauseTransition transition = new PauseTransition(Duration.seconds(1));
+                    transition.setOnFinished(event -> btn1.setStyle("-fx-background-color: rgb(82, 82, 82)"));
+                    btn1.setOnMouseClicked(event -> {
+                        event.consume();
+                        btn1.setStyle("-fx-background-color: gray");
+                        transition.playFromStart();
+                    });
+                    
+                    btn0.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                                    casa.setText(btn0.getText());
+                                }
+                            });
+                        }
+                    });
                     btn1.focusedProperty().addListener(new ChangeListener<Boolean>() {
                         public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                             casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -320,15 +387,6 @@ public class FXMLDocumentController implements Initializable {
                             });
                         }
                     });
-                    btn0.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btn0.getText());
-                                }
-                            });
-                        }
-                    });
                     btnA.focusedProperty().addListener(new ChangeListener<Boolean>() {
                         public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                             casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -383,6 +441,16 @@ public class FXMLDocumentController implements Initializable {
                             });
                         }
                     });
+
+                    btnDelete.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                                    casa.setText("");
+                                }
+                            });
+                        }
+                    });
                 }
 
                 board.add(cell, colunas, linhas);
@@ -398,14 +466,22 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void testSolution(ActionEvent event) {
         int[][] BoardContent = getBoardContent(board);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        
         if (verifyIfItsFull(BoardContent)) {
             if (CheckAnswer.isValidSudoku(BoardContent)) {
-                System.out.println("Solution accepted!");
+                System.out.println("Solution accepted! Solved in: "+labelCronometro.getText());
             } else {
                 System.out.println("Solution unaccepted!");
+                alert.setTitle("WRONG SOLUTION");
+                alert.setHeaderText("Your submission failed in the tests!");
+                alert.showAndWait();
             }
         } else {
             System.out.println("Board not completed yet!");
+            alert.setTitle("BOARD NOT COMPLETED");
+            alert.setHeaderText("You need to complete the board in order to submit the solution!");
+            alert.showAndWait();
         }
         printBoard(BoardContent);
 
@@ -448,5 +524,4 @@ public class FXMLDocumentController implements Initializable {
         }
         return true;
     }
-
 }
