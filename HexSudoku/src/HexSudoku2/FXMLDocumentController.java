@@ -1,5 +1,8 @@
 package HexSudoku2;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.css.PseudoClass;
@@ -18,9 +21,20 @@ import javafx.animation.Timeline;
 import javafx.beans.InvalidationListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -103,6 +117,27 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     Button btnTestSolution;
+    
+    @FXML
+    Button btnLogin;
+    
+    @FXML
+    Button btnBackHome;
+    
+    @FXML
+    TextField txtFieldUsername;
+    
+    @FXML
+    PasswordField passFieldPassword;
+    
+    @FXML
+    Label labelAvisoLogin;
+    
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+    
+
 
     @FXML
     Button btnDelete;
@@ -135,6 +170,39 @@ public class FXMLDocumentController implements Initializable {
             btnpause.setText("Continue");
         }
     }
+    
+    /*------*/
+    
+    // Login
+    public void userLogin(ActionEvent event) throws IOException {
+        checkLogin();
+    }
+    
+    public void checkLogin() throws IOException {
+        Main m = new Main();
+        
+        if(txtFieldUsername.getText().toString().equals("javacoding") && passFieldPassword.getText().toString().equals("123")) {
+            labelAvisoLogin.setText("Sucess!");
+            m.changeScene("FXMLDocument.fxml", "Sudoku Game");
+        }
+        
+        else if(txtFieldUsername.getText().isEmpty() && passFieldPassword.getText().isEmpty()) {
+            labelAvisoLogin.setText("Please enter your data.");
+        }
+        
+        else {
+            labelAvisoLogin.setText("Wrong username or password!");
+        }
+    }
+    
+    
+    public void userLogOut(ActionEvent event) throws IOException {
+          Main m = new Main();
+          m.changeScene("Login.fxml", "Login");
+    }
+    
+    /*------*/
+    
 
     @FXML
     public void printBoard(int[][] board) {

@@ -197,6 +197,14 @@
                   <Font name="Arial Black" size="15.0" />
                </font>
             </Label>
+            <Button fx:id="btnBackHome" mnemonicParsing="false" onAction="#userLogOut" prefHeight="19.0" prefWidth="48.0" style="-fx-background-color: rgb(186, 222, 252); -fx-border-color: white;" text="⌂">
+               <font>
+                  <Font name="Arial Black" size="18.0" />
+               </font>
+               <FlowPane.margin>
+                  <Insets left="90.0" />
+               </FlowPane.margin>
+            </Button>
          </children>
       </FlowPane>
    </top>
@@ -221,6 +229,7 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
