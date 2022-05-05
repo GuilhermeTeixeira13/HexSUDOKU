@@ -29,9 +29,10 @@ public class Main extends Application {
         
     }
     
-    public void changeScene(String fxml, String title) throws IOException {
+    public void changeScene(String fxml, String title, int larg, int alt) throws IOException {
         Parent root2 = FXMLLoader.load(getClass().getResource(fxml));
-        Scene scene2 = new Scene(root2, 933, 684);
+        Scene scene2 = new Scene(root2, larg, alt);
+        scene2.getStylesheets().add("fxmlview.css");
         stg.setScene(scene2);
     }
 

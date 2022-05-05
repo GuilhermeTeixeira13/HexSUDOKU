@@ -148,7 +148,6 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        board.getStyleClass().add("board");
         timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> incrementTime()));
         timeline.setCycleCount(Animation.INDEFINITE);
     }
@@ -183,7 +182,7 @@ public class FXMLDocumentController implements Initializable {
         
         if(txtFieldUsername.getText().toString().equals("javacoding") && passFieldPassword.getText().toString().equals("123")) {
             labelAvisoLogin.setText("Sucess!");
-            m.changeScene("FXMLDocument.fxml", "Sudoku Game");
+            m.changeScene("FXMLDificuldade.fxml", "Escolher Dificuldade", 498, 264);
         }
         
         else if(txtFieldUsername.getText().isEmpty() && passFieldPassword.getText().isEmpty()) {
@@ -198,7 +197,7 @@ public class FXMLDocumentController implements Initializable {
     
     public void userLogOut(ActionEvent event) throws IOException {
           Main m = new Main();
-          m.changeScene("Login.fxml", "Login");
+          m.changeScene("Login.fxml", "Login", 600, 400);
     }
     
     /*------*/
@@ -215,25 +214,32 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    public void inicializaFacil(ActionEvent event) {
-        board = createBoard(board, 1);
+    public void inicializaFacil(ActionEvent event) throws IOException {
+        Main m = new Main();
+        board = createBoard(1);
         timeline.play();
+        m.changeScene("FXMLDocument.fxml", "HexSudoku", 921, 670);
     }
 
     @FXML
-    public void inicializaMedio(ActionEvent event) {
-        board = createBoard(board, 2);
+    public void inicializaMedio(ActionEvent event) throws IOException {
+        Main m = new Main();
+        board = createBoard(2);
         timeline.play();
+        m.changeScene("FXMLDocument.fxml", "HexSudoku", 921, 670);
     }
 
     @FXML
-    public void inicializaDificil(ActionEvent event) {
-        board = createBoard(board, 3);
+    public void inicializaDificil(ActionEvent event) throws IOException {
+        Main m = new Main();
+        board = createBoard(3);
         timeline.play();
+        m.changeScene("FXMLDocument.fxml", "HexSudoku", 921, 670);
     }
 
     @FXML
-    public GridPane createBoard(GridPane board, int dif) {
+    public GridPane createBoard(int dif) {
+        GridPane board = new GridPane();
         int N = 16;
         int espacosBranco = 0;
         int pistas = 0;
@@ -279,14 +285,6 @@ public class FXMLDocumentController implements Initializable {
                 } else {
                     casa.setText("");
                     casa.setEditable(false);
-
-                    PauseTransition transition = new PauseTransition(Duration.seconds(1));
-                    transition.setOnFinished(event -> btn1.setStyle("-fx-background-color: rgb(82, 82, 82)"));
-                    btn1.setOnMouseClicked(event -> {
-                        event.consume();
-                        btn1.setStyle("-fx-background-color: gray");
-                        transition.playFromStart();
-                    });
                     
                     btn0.focusedProperty().addListener(new ChangeListener<Boolean>() {
                         public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {

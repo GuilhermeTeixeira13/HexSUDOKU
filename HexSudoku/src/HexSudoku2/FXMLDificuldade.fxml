@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="498.0" style="-fx-background-color: rgb(186, 222, 252);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HexSudoku2.FXMLDocumentController">
+   <center>
+      <GridPane prefHeight="300.0" prefWidth="525.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="btnFacil" alignment="CENTER" mnemonicParsing="false" onAction="#inicializaFacil" prefHeight="56.0" prefWidth="101.0" style="-fx-background-color: rgb(82, 82, 82); -fx-border-color: lime; -fx-border-width: 2px;" text="FÁCIL" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnMedio" mnemonicParsing="false" onAction="#inicializaMedio" prefHeight="56.0" prefWidth="101.0" style="-fx-background-color: rgb(82, 82, 82); -fx-border-color: yellow; -fx-border-width: 2px;" text="MÉDIO" textFill="WHITE" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnDificil" mnemonicParsing="false" onAction="#inicializaDificil" prefHeight="56.0" prefWidth="101.0" style="-fx-background-color: rgb(82, 82, 82); -fx-border-color: red; -fx-border-width: 2px;" text="DIFÍCIL" textFill="WHITE" GridPane.columnIndex="2">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </GridPane>
+   </center>
+   <top>
+      <Label fx:id="labelUsername" prefHeight="27.0" prefWidth="116.0" text="USERNAME" textFill="#525252" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Arial Black" size="18.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+   <bottom>
+      <Button fx:id="btnRecord" mnemonicParsing="false" prefHeight="34.0" prefWidth="165.0" style="-fx-background-color: rgb(82, 82, 82);" text="RECORDS" textFill="WHITE" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Arial Black" size="15.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="25.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+</BorderPane>
