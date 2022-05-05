@@ -41,7 +41,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.util.Duration;
 
-public class FXMLDocumentController implements Initializable {
+public class GameController implements Initializable {
 
     @FXML
     GridPane board;
@@ -120,36 +120,29 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     Button btnLogin;
-    
-    @FXML
-    Button btnBackHome;
-    
-    @FXML
-    TextField txtFieldUsername;
-    
-    @FXML
-    PasswordField passFieldPassword;
-    
-    @FXML
-    Label labelAvisoLogin;
-    
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-    
-
 
     @FXML
     Button btnDelete;
+    
+    int dificuldade;
 
     Timeline timeline;
     LocalTime time = LocalTime.parse("00:00:00");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+    
+    public void getDif(int dif){
+        this.dificuldade = dif;
+        System.out.println("A dif é -> "+this.dificuldade);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> incrementTime()));
         timeline.setCycleCount(Animation.INDEFINITE);
+        
+        System.out.println("Vai começar com a dificuldade: "+ this.dificuldade);
+        board = createBoard(this.dificuldade, board);
+        timeline.play();
     }
 
     private void incrementTime() {
@@ -170,39 +163,6 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
-    /*------*/
-    
-    // Login
-    public void userLogin(ActionEvent event) throws IOException {
-        checkLogin();
-    }
-    
-    public void checkLogin() throws IOException {
-        Main m = new Main();
-        
-        if(txtFieldUsername.getText().toString().equals("javacoding") && passFieldPassword.getText().toString().equals("123")) {
-            labelAvisoLogin.setText("Sucess!");
-            m.changeScene("FXMLDificuldade.fxml", "Escolher Dificuldade", 498, 264);
-        }
-        
-        else if(txtFieldUsername.getText().isEmpty() && passFieldPassword.getText().isEmpty()) {
-            labelAvisoLogin.setText("Please enter your data.");
-        }
-        
-        else {
-            labelAvisoLogin.setText("Wrong username or password!");
-        }
-    }
-    
-    
-    public void userLogOut(ActionEvent event) throws IOException {
-          Main m = new Main();
-          m.changeScene("Login.fxml", "Login", 600, 400);
-    }
-    
-    /*------*/
-    
-
     @FXML
     public void printBoard(int[][] board) {
         for (int row = 0; row < 16; row++) {
@@ -214,32 +174,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    public void inicializaFacil(ActionEvent event) throws IOException {
-        Main m = new Main();
-        board = createBoard(1);
-        timeline.play();
-        m.changeScene("FXMLDocument.fxml", "HexSudoku", 921, 670);
-    }
-
-    @FXML
-    public void inicializaMedio(ActionEvent event) throws IOException {
-        Main m = new Main();
-        board = createBoard(2);
-        timeline.play();
-        m.changeScene("FXMLDocument.fxml", "HexSudoku", 921, 670);
-    }
-
-    @FXML
-    public void inicializaDificil(ActionEvent event) throws IOException {
-        Main m = new Main();
-        board = createBoard(3);
-        timeline.play();
-        m.changeScene("FXMLDocument.fxml", "HexSudoku", 921, 670);
-    }
-
-    @FXML
-    public GridPane createBoard(int dif) {
-        GridPane board = new GridPane();
+    public GridPane createBoard(int dif, GridPane b) {   
         int N = 16;
         int espacosBranco = 0;
         int pistas = 0;
@@ -261,7 +196,7 @@ public class FXMLDocumentController implements Initializable {
 
         espacosBranco = (N * N) - pistas;
 
-        Sudoku sudoku = new Sudoku(N, 1);
+        GeradorBoards sudoku = new GeradorBoards(N, 1);
         sudoku.fillValues();
 
         int[][] SudokuBoard = sudoku.getBoard();
@@ -452,7 +387,6 @@ public class FXMLDocumentController implements Initializable {
                 }
 
                 board.add(cell, colunas, linhas);
-
             }
         }
         System.out.println("Board that you need to solve (dif=" + dif + ", Pistas=" + pistas + "):");

@@ -3,7 +3,7 @@ package HexSudoku2;
 
 import java.lang.*;
 
-public class Sudoku {
+public class GeradorBoards {
 
     int[] mat[];
     int N; // number of columns/rows.
@@ -11,7 +11,7 @@ public class Sudoku {
     int K; // No. Of missing digits
 
     // Constructor
-    Sudoku(int N, int K) {
+    GeradorBoards(int N, int K) {
         this.N = N;
         this.K = K;
 

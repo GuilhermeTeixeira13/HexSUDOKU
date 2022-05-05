@@ -14,30 +14,21 @@ import javafx.stage.Stage;
  * @author jpc
  */
 public class Main extends Application {
-    
-    
-    private static Stage stg;
-    
-    
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        stg = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));   
-        primaryStage.setTitle("Sudoku Login");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-        
-    }
-    
-    public void changeScene(String fxml, String title, int larg, int alt) throws IOException {
-        Parent root2 = FXMLLoader.load(getClass().getResource(fxml));
-        Scene scene2 = new Scene(root2, larg, alt);
-        scene2.getStylesheets().add("fxmlview.css");
-        stg.setScene(scene2);
+    public void start(Stage stage) throws Exception {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-    
 }
