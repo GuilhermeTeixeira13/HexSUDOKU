@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -186,7 +187,7 @@ public class FXMLDocumentController implements Initializable {
 
         espacosBranco = (N * N) - pistas;
 
-        Sudoku sudoku = new Sudoku(N, espacosBranco);
+        Sudoku sudoku = new Sudoku(N, 1);
         sudoku.fillValues();
 
         int[][] SudokuBoard = sudoku.getBoard();
@@ -215,10 +216,9 @@ public class FXMLDocumentController implements Initializable {
                     transition.setOnFinished(event -> btn1.setStyle("-fx-background-color: rgb(82, 82, 82)"));
                     btn1.setOnMouseClicked(event -> {
                         event.consume();
-                        btn1.setStyle("-fx-background-color: red");
+                        btn1.setStyle("-fx-background-color: gray");
                         transition.playFromStart();
                     });
-
                     
                     btn0.focusedProperty().addListener(new ChangeListener<Boolean>() {
                         public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
@@ -398,14 +398,22 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void testSolution(ActionEvent event) {
         int[][] BoardContent = getBoardContent(board);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        
         if (verifyIfItsFull(BoardContent)) {
             if (CheckAnswer.isValidSudoku(BoardContent)) {
-                System.out.println("Solution accepted!");
+                System.out.println("Solution accepted! Solved in: "+labelCronometro.getText());
             } else {
                 System.out.println("Solution unaccepted!");
+                alert.setTitle("WRONG SOLUTION");
+                alert.setHeaderText("Your submission failed in the tests!");
+                alert.showAndWait();
             }
         } else {
             System.out.println("Board not completed yet!");
+            alert.setTitle("BOARD NOT COMPLETED");
+            alert.setHeaderText("You need to complete the board in order to submit the solution!");
+            alert.showAndWait();
         }
         printBoard(BoardContent);
 
