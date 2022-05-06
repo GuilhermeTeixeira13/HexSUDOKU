@@ -1,44 +1,25 @@
 package HexSudoku2;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.css.PseudoClass;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
-import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
-import javafx.beans.InvalidationListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.util.Duration;
 
 public class GameController implements Initializable {
@@ -130,17 +111,15 @@ public class GameController implements Initializable {
     LocalTime time = LocalTime.parse("00:00:00");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
     
-    public void getDif(int dif){
+    public GameController(int dif){
         this.dificuldade = dif;
-        System.out.println("A dif é -> "+this.dificuldade);
     }
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> incrementTime()));
         timeline.setCycleCount(Animation.INDEFINITE);
-        
-        System.out.println("Vai começar com a dificuldade: "+ this.dificuldade);
+       
         board = createBoard(this.dificuldade, board);
         timeline.play();
     }
@@ -196,7 +175,7 @@ public class GameController implements Initializable {
 
         espacosBranco = (N * N) - pistas;
 
-        GeradorBoards sudoku = new GeradorBoards(N, 1);
+        GeradorBoards sudoku = new GeradorBoards(N, espacosBranco);
         sudoku.fillValues();
 
         int[][] SudokuBoard = sudoku.getBoard();

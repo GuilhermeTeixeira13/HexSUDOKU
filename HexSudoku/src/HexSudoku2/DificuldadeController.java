@@ -3,7 +3,6 @@ package HexSudoku2;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.Animation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class DificuldadeController {
@@ -41,16 +39,16 @@ public class DificuldadeController {
     
     @FXML
     public void inicializaFacil(ActionEvent event) throws IOException {
-        dif = 1;
-
+        dif = 1;    
+        
+        GameController gameController = new GameController(dif);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
-        root = loader.load();
-
-        GameController gameController = loader.getController();
-        gameController.getDif(dif);
-
+        loader.setController(gameController);
+        Parent root = loader.load();
+        
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
+        scene.getStylesheets().add("fxmlview.css");
         stage.setScene(scene);
         stage.show();
     }
@@ -58,14 +56,15 @@ public class DificuldadeController {
     @FXML
     public void inicializaMedio(ActionEvent event) throws IOException {
         dif = 2;
+        
+        GameController gameController = new GameController(dif);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
-        root = loader.load();
-
-        GameController gameController = loader.getController();
-        gameController.getDif(dif);
+        loader.setController(gameController);
+        Parent root = loader.load();
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
+        scene.getStylesheets().add("fxmlview.css");
         stage.setScene(scene);
         stage.show();
     }
@@ -73,14 +72,15 @@ public class DificuldadeController {
     @FXML
     public void inicializaDificil(ActionEvent event) throws IOException {
         dif = 3;
+        
+        GameController gameController = new GameController(dif);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
-        root = loader.load();
-
-        GameController gameController = loader.getController();
-        gameController.getDif(dif);
+        loader.setController(gameController);
+        Parent root = loader.load();
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
+        scene.getStylesheets().add("fxmlview.css");
         stage.setScene(scene);
         stage.show();
     }
