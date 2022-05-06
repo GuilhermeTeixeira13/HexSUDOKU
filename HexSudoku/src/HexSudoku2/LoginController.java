@@ -38,7 +38,6 @@ public class LoginController {
         checkLogin();
 
         String username = txtFieldUsername.getText();
-        System.out.println(txtFieldUsername.getText());
         String pw = passFieldPassword.getText();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDificuldade.fxml"));

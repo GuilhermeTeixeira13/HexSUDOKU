@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class DificuldadeController {
     @FXML
-    Label labelUsername; 
+    Label labelUsername;
     
     String pw; 
     int dif;
@@ -40,8 +40,8 @@ public class DificuldadeController {
     @FXML
     public void inicializaFacil(ActionEvent event) throws IOException {
         dif = 1;    
-        
-        GameController gameController = new GameController(dif);
+
+        GameController gameController = new GameController(dif, labelUsername.getText());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
         loader.setController(gameController);
         Parent root = loader.load();
@@ -57,7 +57,7 @@ public class DificuldadeController {
     public void inicializaMedio(ActionEvent event) throws IOException {
         dif = 2;
         
-        GameController gameController = new GameController(dif);
+        GameController gameController = new GameController(dif, labelUsername.getText());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
         loader.setController(gameController);
         Parent root = loader.load();
@@ -73,7 +73,7 @@ public class DificuldadeController {
     public void inicializaDificil(ActionEvent event) throws IOException {
         dif = 3;
         
-        GameController gameController = new GameController(dif);
+        GameController gameController = new GameController(dif, labelUsername.getText());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
         loader.setController(gameController);
         Parent root = loader.load();

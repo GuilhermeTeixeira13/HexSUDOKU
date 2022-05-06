@@ -34,8 +34,8 @@
 }
 
 .cell .text-field {
-    -fx-pref-width: 1em ;
-    -fx-pref-height: 1em ;
+    -fx-pref-width: 3em ;
+    -fx-pref-height: 3em ;
     -fx-alignment: center;
     -fx-font-weight: bold;
 }

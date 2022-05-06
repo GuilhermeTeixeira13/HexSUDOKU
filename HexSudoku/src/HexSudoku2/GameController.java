@@ -106,20 +106,25 @@ public class GameController implements Initializable {
     Button btnDelete;
     
     int dificuldade;
+    String nomeUser;
 
     Timeline timeline;
     LocalTime time = LocalTime.parse("00:00:00");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
     
-    public GameController(int dif){
+    public GameController(int dif, String username){
         this.dificuldade = dif;
+        this.nomeUser = username;
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> incrementTime()));
         timeline.setCycleCount(Animation.INDEFINITE);
+        
+        System.out.println("Username -> "+nomeUser);
        
+        labelUsername.setText(this.nomeUser);
         board = createBoard(this.dificuldade, board);
         timeline.play();
     }
