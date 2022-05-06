@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -29,38 +30,48 @@ public class LoginController {
     
     @FXML
     PasswordField passFieldPassword;
+   
     
     private Stage stage;
     private Scene scene;
     private Parent root;
 
+    @FXML
     public void userLogin(ActionEvent event) throws IOException {
-        checkLogin();
+        int validateCredencials = 0;
+        validateCredencials = checkLogin();
 
-        String username = txtFieldUsername.getText();
-        System.out.println(txtFieldUsername.getText());
-        String pw = passFieldPassword.getText();
+        if (validateCredencials == 1) {
+            String username = txtFieldUsername.getText();
+            System.out.println(txtFieldUsername.getText());
+            String pw = passFieldPassword.getText();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDificuldade.fxml"));
-        root = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDificuldade.fxml"));
+            root = loader.load();
 
-        DificuldadeController dificuldadeController = loader.getController();
-        dificuldadeController.displayName(username);
-        dificuldadeController.getpw(pw);
+            DificuldadeController dificuldadeController = loader.getController();
+            dificuldadeController.displayName(username);
+            dificuldadeController.getpw(pw);
 
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void checkLogin() {
-        if (txtFieldUsername.getText().toString().equals("javacoding") && passFieldPassword.getText().toString().equals("123")) {
-            labelAvisoLogin.setText("Sucess!");  
-        } else if (txtFieldUsername.getText().isEmpty() && passFieldPassword.getText().isEmpty()) {
-            labelAvisoLogin.setText("Please enter your data.");
-        } else {
-            labelAvisoLogin.setText("Wrong username or password!");
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }
     }
+
+    public int checkLogin() {
+        if (txtFieldUsername.getText().toString().equals("javacoding") && passFieldPassword.getText().toString().equals("123")) {
+            labelAvisoLogin.setText("Sucess!");  
+            return 1;
+        } else if (txtFieldUsername.getText().isEmpty() && passFieldPassword.getText().isEmpty()) {
+            labelAvisoLogin.setText("Please enter your data.");
+            return -1;
+        } else {
+            labelAvisoLogin.setText("Wrong username or password!");
+            return -1;
+        }
+    }
+    
+ 
 }

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: rgb(186, 222, 252);" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HexSudoku2.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: rgb(186, 222, 252);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HexSudoku2.LoginController">
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="239.0" BorderPane.alignment="CENTER">
          <children>
@@ -30,7 +30,7 @@
                </font>
             </Label>
             <TextField fx:id="txtFieldUsername" layoutX="181.0" layoutY="224.0" promptText="Username" />
-            <Button fx:id="btnLogin" layoutX="132.0" layoutY="325.0" mnemonicParsing="false" onAction="#userLogin" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: white;" text="Log In" />
+            <Button fx:id="btnLogin" layoutX="132.0" layoutY="328.0" mnemonicParsing="false" onAction="#userLogin" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: white;" text="Log In" />
             <Label fx:id="labelAvisoLogin" layoutX="129.0" layoutY="147.0" textFill="RED">
                <font>
                   <Font name="Arial Black" size="12.0" />
