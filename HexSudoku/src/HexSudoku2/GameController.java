@@ -1,5 +1,6 @@
 package HexSudoku2;
 
+import java.io.IOException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.css.PseudoClass;
@@ -12,14 +13,18 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GameController implements Initializable {
@@ -107,6 +112,10 @@ public class GameController implements Initializable {
 
     @FXML
     Button[] arrayButtons;
+    
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     int dificuldade;
     String nomeUser;
@@ -204,7 +213,7 @@ public class GameController implements Initializable {
 
         espacosBranco = (N * N) - pistas;
 
-        GeradorBoards sudoku = new GeradorBoards(N, espacosBranco);
+        GeradorBoards sudoku = new GeradorBoards(N, 1);
         sudoku.fillValues();
 
         int[][] SudokuBoard = sudoku.getBoard();
@@ -263,13 +272,22 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    private void testSolution(ActionEvent event) {
+    private void testSolution(ActionEvent event) throws IOException {
         int[][] BoardContent = getBoardContent(board);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
         if (verifyIfItsFull(BoardContent)) {
             if (CheckAnswer.isValidSudoku(BoardContent)) {
                 System.out.println("Solution accepted! Solved in: " + labelCronometro.getText());
+                CorrectAnswerController correctAnswerController = new CorrectAnswerController(labelCronometro.getText(), this.nomeUser);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLCorrectAnswer.fxml"));
+                loader.setController(correctAnswerController);
+                Parent root = loader.load();
+
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
             } else {
                 System.out.println("Solution unaccepted!");
                 alert.setTitle("WRONG SOLUTION");
