@@ -26,7 +26,7 @@ public class GameController implements Initializable {
 
     @FXML
     GridPane board;
-    
+
     @FXML
     Button btn0;
 
@@ -98,35 +98,59 @@ public class GameController implements Initializable {
 
     @FXML
     Button btnTestSolution;
-    
-    @FXML
-    Button btnLogin;
 
     @FXML
     Button btnDelete;
     
+    @FXML
+    Button btnQuit;
+
+    @FXML
+    Button[] arrayButtons;
+
     int dificuldade;
     String nomeUser;
 
     Timeline timeline;
     LocalTime time = LocalTime.parse("00:00:00");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
-    
-    public GameController(int dif, String username){
+
+    public GameController(int dif, String username) {
         this.dificuldade = dif;
         this.nomeUser = username;
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        inicializeButtonArray();
         timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> incrementTime()));
         timeline.setCycleCount(Animation.INDEFINITE);
-        
-        System.out.println("Username -> "+nomeUser);
-       
+
+        System.out.println("Username -> " + nomeUser);
+
         labelUsername.setText(this.nomeUser);
         board = createBoard(this.dificuldade, board);
         timeline.play();
+    }
+
+    public void inicializeButtonArray() {
+        arrayButtons = new Button[16];
+        arrayButtons[0] = btn0;
+        arrayButtons[1] = btn1;
+        arrayButtons[2] = btn2;
+        arrayButtons[3] = btn3;
+        arrayButtons[4] = btn4;
+        arrayButtons[5] = btn5;
+        arrayButtons[6] = btn6;
+        arrayButtons[7] = btn7;
+        arrayButtons[8] = btn8;
+        arrayButtons[9] = btn9;
+        arrayButtons[10] = btnA;
+        arrayButtons[11] = btnB;
+        arrayButtons[12] = btnC;
+        arrayButtons[13] = btnD;
+        arrayButtons[14] = btnE;
+        arrayButtons[15] = btnF;
     }
 
     private void incrementTime() {
@@ -146,7 +170,7 @@ public class GameController implements Initializable {
             btnpause.setText("Continue");
         }
     }
-    
+
     @FXML
     public void printBoard(int[][] board) {
         for (int row = 0; row < 16; row++) {
@@ -158,7 +182,7 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    public GridPane createBoard(int dif, GridPane b) {   
+    public GridPane createBoard(int dif, GridPane b) {
         int N = 16;
         int espacosBranco = 0;
         int pistas = 0;
@@ -204,160 +228,19 @@ public class GameController implements Initializable {
                 } else {
                     casa.setText("");
                     casa.setEditable(false);
-                    
-                    btn0.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btn0.getText());
-                                }
-                            });
-                        }
-                    });
-                    btn1.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btn1.getText());
-                                }
-                            });
-                        }
-                    });
-                    btn2.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btn2.getText());
-                                }
-                            });
-                        }
-                    });
-                    btn3.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btn3.getText());
-                                }
-                            });
-                        }
-                    });
-                    btn4.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btn4.getText());
-                                }
-                            });
-                        }
-                    });
-                    btn4.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btn4.getText());
-                                }
-                            });
-                        }
-                    });
-                    btn5.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btn5.getText());
-                                }
-                            });
-                        }
-                    });
-                    btn6.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btn6.getText());
-                                }
-                            });
-                        }
-                    });
-                    btn7.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btn7.getText());
-                                }
-                            });
-                        }
-                    });
-                    btn8.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btn8.getText());
-                                }
-                            });
-                        }
-                    });
-                    btn9.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btn9.getText());
-                                }
-                            });
-                        }
-                    });
-                    btnA.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btnA.getText());
-                                }
-                            });
-                        }
-                    });
-                    btnB.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btnB.getText());
-                                }
-                            });
-                        }
-                    });
-                    btnC.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btnC.getText());
-                                }
-                            });
-                        }
-                    });
-                    btnD.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btnD.getText());
-                                }
-                            });
-                        }
-                    });
-                    btnE.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btnE.getText());
-                                }
-                            });
-                        }
-                    });
-                    btnF.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                            casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                                    casa.setText(btnF.getText());
-                                }
-                            });
-                        }
-                    });
+
+                    for (int i = 0; i < 16; i++) {
+                        Button but = arrayButtons[i];
+                        but.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                                casa.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                                    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                                        casa.setText(but.getText());
+                                    }
+                                });
+                            }
+                        });
+                    }
 
                     btnDelete.focusedProperty().addListener(new ChangeListener<Boolean>() {
                         public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
@@ -383,10 +266,10 @@ public class GameController implements Initializable {
     private void testSolution(ActionEvent event) {
         int[][] BoardContent = getBoardContent(board);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        
+
         if (verifyIfItsFull(BoardContent)) {
             if (CheckAnswer.isValidSudoku(BoardContent)) {
-                System.out.println("Solution accepted! Solved in: "+labelCronometro.getText());
+                System.out.println("Solution accepted! Solved in: " + labelCronometro.getText());
             } else {
                 System.out.println("Solution unaccepted!");
                 alert.setTitle("WRONG SOLUTION");

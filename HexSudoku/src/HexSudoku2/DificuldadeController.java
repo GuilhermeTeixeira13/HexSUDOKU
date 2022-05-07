@@ -16,6 +16,7 @@ public class DificuldadeController {
     @FXML
     Label labelUsername;
     
+    String userName;
     String pw; 
     int dif;
     
@@ -25,7 +26,8 @@ public class DificuldadeController {
     
     
     public void displayName(String username){
-        labelUsername.setText(username);
+        this.userName = username;
+        labelUsername.setText(username+", please choose the game's dificulty:");
     }
     
     public void getpw(String pw){
@@ -33,7 +35,7 @@ public class DificuldadeController {
     }
     
     public void initialize(URL url, ResourceBundle rb) {
-;
+
     }
     
     
@@ -41,7 +43,7 @@ public class DificuldadeController {
     public void inicializaFacil(ActionEvent event) throws IOException {
         dif = 1;    
 
-        GameController gameController = new GameController(dif, labelUsername.getText());
+        GameController gameController = new GameController(dif, this.userName);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
         loader.setController(gameController);
         Parent root = loader.load();
@@ -57,7 +59,7 @@ public class DificuldadeController {
     public void inicializaMedio(ActionEvent event) throws IOException {
         dif = 2;
         
-        GameController gameController = new GameController(dif, labelUsername.getText());
+        GameController gameController = new GameController(dif, this.userName);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
         loader.setController(gameController);
         Parent root = loader.load();
@@ -73,7 +75,7 @@ public class DificuldadeController {
     public void inicializaDificil(ActionEvent event) throws IOException {
         dif = 3;
         
-        GameController gameController = new GameController(dif, labelUsername.getText());
+        GameController gameController = new GameController(dif, this.userName);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
         loader.setController(gameController);
         Parent root = loader.load();
