@@ -1,5 +1,8 @@
 package HexSudoku2;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -7,6 +10,8 @@ import javafx.css.PseudoClass;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -134,8 +139,6 @@ public class GameController implements Initializable {
         inicializeButtonArray();
         timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> incrementTime()));
         timeline.setCycleCount(Animation.INDEFINITE);
-
-        System.out.println("Username -> " + nomeUser + "\n");
 
         labelUsername.setText(this.nomeUser);
         board = createBoard(this.dificuldade, board);
@@ -340,5 +343,32 @@ public class GameController implements Initializable {
             }
         }
         return true;
+    }
+    
+    @FXML
+    private void records(ActionEvent event) throws IOException {
+        BufferedReader reader;
+        ArrayList<LocalTime> arrayTimes = new ArrayList<>();
+        ArrayList<String> tenBestTimesByOrder = new ArrayList<>();
+        try {
+            reader = new BufferedReader(new FileReader("Records.txt"));
+            String line = null;
+            String ls = System.getProperty("line.separator");
+            while ((line = reader.readLine()) != null) {
+                arrayTimes.add(LocalTime.parse(line, DateTimeFormatter.ofPattern("HH:mm:ss")));
+            }
+            reader.close();
+
+            Collections.sort(arrayTimes);
+            tenBestTimesByOrder.clear();
+            int limite = Math.min(10, arrayTimes.size());
+            for (int i = 0; i < limite; i++) {
+                tenBestTimesByOrder.add(arrayTimes.get(i).toString());
+            }
+            
+        } catch (FileNotFoundException ex) {
+        }
+
+        System.out.println("\n10 best times:\n" + tenBestTimesByOrder.toString() + "\n");
     }
 }

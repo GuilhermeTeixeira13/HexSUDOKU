@@ -1,7 +1,15 @@
 package HexSudoku2;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,41 +21,43 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class DificuldadeController {
+
     @FXML
     Label labelUsername;
-    
+
     String userName;
-    String pw; 
+    String pw;
     int dif;
-    
+
+    ArrayList<String> tenBestTimesByOrder = new ArrayList<>();
+
     private Stage stage;
     private Scene scene;
     private Parent root;
-    
-    
-    public void displayName(String username){
+
+    public void displayName(String username) {
         this.userName = username;
-        labelUsername.setText(username+", please choose the game's dificulty:");
+        System.out.println("Username -> " + this.userName + "\n");
+        labelUsername.setText(username + ", please choose the game's dificulty:");
     }
-    
-    public void getpw(String pw){
+
+    public void getpw(String pw) {
         this.pw = pw;
     }
-    
+
     public void initialize(URL url, ResourceBundle rb) {
 
     }
-    
-    
+
     @FXML
     public void inicializaFacil(ActionEvent event) throws IOException {
-        dif = 1;    
+        dif = 1;
 
         GameController gameController = new GameController(dif, this.userName);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
         loader.setController(gameController);
         Parent root = loader.load();
-        
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         scene.getStylesheets().add("fxmlview.css");
@@ -58,7 +68,7 @@ public class DificuldadeController {
     @FXML
     public void inicializaMedio(ActionEvent event) throws IOException {
         dif = 2;
-        
+
         GameController gameController = new GameController(dif, this.userName);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
         loader.setController(gameController);
@@ -74,7 +84,7 @@ public class DificuldadeController {
     @FXML
     public void inicializaDificil(ActionEvent event) throws IOException {
         dif = 3;
-        
+
         GameController gameController = new GameController(dif, this.userName);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
         loader.setController(gameController);
@@ -85,5 +95,32 @@ public class DificuldadeController {
         scene.getStylesheets().add("fxmlview.css");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    private void records(ActionEvent event) throws IOException {
+        BufferedReader reader;
+        ArrayList<LocalTime> arrayTimes = new ArrayList<>();
+        ArrayList<String> tenBestTimesByOrder = new ArrayList<>();
+        try {
+            reader = new BufferedReader(new FileReader("Records.txt"));
+            String line = null;
+            String ls = System.getProperty("line.separator");
+            while ((line = reader.readLine()) != null) {
+                arrayTimes.add(LocalTime.parse(line, DateTimeFormatter.ofPattern("HH:mm:ss")));
+            }
+            reader.close();
+
+            Collections.sort(arrayTimes);
+            tenBestTimesByOrder.clear();
+            int limite = Math.min(10, arrayTimes.size());
+            for (int i = 0; i < limite; i++) {
+                tenBestTimesByOrder.add(arrayTimes.get(i).toString());
+            }
+            
+        } catch (FileNotFoundException ex) {
+        }
+
+        System.out.println("\n10 best times:\n" + tenBestTimesByOrder.toString() + "\n");
     }
 }

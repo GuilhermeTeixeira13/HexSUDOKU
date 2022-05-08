@@ -95,7 +95,7 @@
                   <Font name="Arial Black" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnRecord" mnemonicParsing="false" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: rgb(82, 82, 82);" text="MY RECORDS" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="btnRecord" mnemonicParsing="false" onAction="#records" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: rgb(82, 82, 82);" text="MY RECORDS" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="30.0" left="35.0" right="20.0" top="20.0" />
                </GridPane.margin>

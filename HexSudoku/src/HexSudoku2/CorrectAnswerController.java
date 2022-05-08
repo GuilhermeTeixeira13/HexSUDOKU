@@ -48,7 +48,6 @@ public class CorrectAnswerController implements Initializable {
     StringBuilder stringBuilder;
     ArrayList<LocalTime> arrayTimes = new ArrayList<>();
     ArrayList<String> tenBestTimesByOrder = new ArrayList<>();
-    
 
     private Stage stage;
     private Scene scene;
@@ -78,11 +77,11 @@ public class CorrectAnswerController implements Initializable {
             FileWriter myWriter = new FileWriter("Records.txt");
             myWriter.write(this.content);
             myWriter.close();
-            
+
             Collections.sort(arrayTimes);
             tenBestTimesByOrder.clear();
-            int limite = Math.min(9, arrayTimes.size());
-            for(int i=0; i<limite; i++){
+            int limite = Math.min(10, arrayTimes.size());
+            for (int i = 0; i < limite; i++) {
                 tenBestTimesByOrder.add(arrayTimes.get(i).toString());
             }
         } catch (FileNotFoundException ex) {
@@ -96,6 +95,6 @@ public class CorrectAnswerController implements Initializable {
 
     @FXML
     private void records(ActionEvent event) throws IOException {
-        System.out.println("\n"+tenBestTimesByOrder.toString());
+        System.out.println("\n10 best times:\n" + tenBestTimesByOrder.toString());
     }
 }
