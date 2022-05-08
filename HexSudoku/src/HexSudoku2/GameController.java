@@ -135,7 +135,7 @@ public class GameController implements Initializable {
         timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> incrementTime()));
         timeline.setCycleCount(Animation.INDEFINITE);
 
-        System.out.println("Username -> " + nomeUser);
+        System.out.println("Username -> " + nomeUser + "\n");
 
         labelUsername.setText(this.nomeUser);
         board = createBoard(this.dificuldade, board);

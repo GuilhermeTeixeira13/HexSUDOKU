@@ -38,7 +38,7 @@
                   <Insets bottom="20.0" />
                </GridPane.margin>
             </Label>
-            <Button fx:id="btnRecords" mnemonicParsing="false" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: rgb(82, 82, 82);" text="MY RECORDS" textFill="WHITE" GridPane.rowIndex="3">
+            <Button fx:id="btnRecords" mnemonicParsing="false" onAction="#records" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: rgb(82, 82, 82);" text="MY RECORDS" textFill="WHITE" GridPane.rowIndex="3">
                <font>
                   <Font name="Arial Black" size="13.0" />
                </font>
