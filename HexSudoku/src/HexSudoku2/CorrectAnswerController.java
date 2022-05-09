@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,7 +50,7 @@ public class CorrectAnswerController implements Initializable {
 
     StringBuilder stringBuilder;
     ArrayList<PairsTimeDate> arrayTimesDates = new ArrayList<>();
-    ArrayList<String> tenBestTimesDatesByOrder = new ArrayList<>();
+    ArrayList<PairsStringString> tenBestTimesDatesByOrder = new ArrayList<>();
 
     private Stage stage;
     private Scene scene;
@@ -62,14 +63,14 @@ public class CorrectAnswerController implements Initializable {
         LocalTime timeMade = LocalTime.parse(this.time, DateTimeFormatter.ofPattern("HH:mm:ss"));
 
         if (tenBestTimesDatesByOrder.size() == 1) {
-            if (timeMade.isBefore(LocalTime.parse(tenBestTimesDatesByOrder.get(0), DateTimeFormatter.ofPattern("HH:mm:ss"))) || timeMade.compareTo(LocalTime.parse(tenBestTimesDatesByOrder.get(0), DateTimeFormatter.ofPattern("HH:mm:ss"))) == 0) {
+            if (timeMade.isBefore(LocalTime.parse(tenBestTimesDatesByOrder.get(0).time, DateTimeFormatter.ofPattern("HH:mm:ss"))) || timeMade.compareTo(LocalTime.parse(tenBestTimesDatesByOrder.get(0).time, DateTimeFormatter.ofPattern("HH:mm:ss"))) == 0) {
                 LabelNewRecord.setVisible(true);
                 System.out.println("New record set! --> " + this.time);
             } else {
                 LabelNewRecord.setVisible(false);
             }
         } else {
-            if (timeMade.isBefore(LocalTime.parse(tenBestTimesDatesByOrder.get(1), DateTimeFormatter.ofPattern("HH:mm:ss")))) {
+            if (timeMade.isBefore(LocalTime.parse(tenBestTimesDatesByOrder.get(1).time, DateTimeFormatter.ofPattern("HH:mm:ss")))) {
                 LabelNewRecord.setVisible(true);
                 System.out.println("New record set! --> " + this.time);
             } else {
@@ -82,16 +83,10 @@ public class CorrectAnswerController implements Initializable {
     public CorrectAnswerController(String time, String username) throws IOException {
         this.time = time;
         this.userName = username;
-        PairsTimeDate timeDate;
+        PairsStringString timeDate;
         BufferedReader reader;
-
+        int linesCount = 1;
         try {
-            LocalTime timeMade = LocalTime.parse(this.time, DateTimeFormatter.ofPattern("HH:mm:ss"));
-            LocalDate DateMade = LocalDate.now();
-            SimpleDateFormat df = new SimpleDateFormat("dd-mm-yyyy");
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-mm-yyyy");
-            int linesCount = 1;
-
             reader = new BufferedReader(new FileReader("Records.txt"));
             this.stringBuilder = new StringBuilder();
             String line = null;
@@ -101,13 +96,10 @@ public class CorrectAnswerController implements Initializable {
                 linesCount++;
             }
 
-            //stringBuilder.deleteCharAt(stringBuilder.length() - 1);
             reader.close();
 
             this.content = stringBuilder.toString();
             this.content = this.content + this.time + " " + LocalDate.now().toString();
-            timeDate = new PairsTimeDate(LocalTime.parse(timeMade.toString(), DateTimeFormatter.ofPattern("HH:mm:ss")), LocalDate.now());
-            arrayTimesDates.add(timeDate);
 
             String fileContent[] = this.content.split("\n");
             Arrays.sort(fileContent);
@@ -124,11 +116,13 @@ public class CorrectAnswerController implements Initializable {
             int limite = Math.min(10, linesCount);
 
             int c = 0;
-            String teste[];
+            String lineContent[];
             reader = new BufferedReader(new FileReader("Records.txt"));
             while (((line = reader.readLine()) != null) && c < limite) {
-                teste = line.split(" ");
-                tenBestTimesDatesByOrder.add(teste[0]);
+                lineContent = line.split(" ");
+                LocalDate date = LocalDate.parse(lineContent[1]);      
+                timeDate = new PairsStringString(lineContent[0], date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+                tenBestTimesDatesByOrder.add(timeDate);
             }
             reader.close();
 
@@ -142,11 +136,11 @@ public class CorrectAnswerController implements Initializable {
 
         String recordsString = "";
         for (int i = 0; i < tenBestTimesDatesByOrder.size(); i++) {
-            recordsString = recordsString + (i + 1) + "º -> " + tenBestTimesDatesByOrder.get(i) + "\n";
+            recordsString = recordsString + (i + 1) + "º -> " + tenBestTimesDatesByOrder.get(i).time + " " + tenBestTimesDatesByOrder.get(i).date +"\n"; 
         }
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("YOUR 10 BEST TIMES");
+        alert.setTitle("YOUR " + tenBestTimesDatesByOrder.size() + " BEST TIMES");
         alert.setHeaderText(recordsString);
         alert.showAndWait();
     }
