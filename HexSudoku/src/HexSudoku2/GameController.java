@@ -370,5 +370,15 @@ public class GameController implements Initializable {
         }
 
         System.out.println("\n10 best times:\n" + tenBestTimesByOrder.toString() + "\n");
+        
+        String recordsString = "";
+        for(int i=0; i<tenBestTimesByOrder.size(); i++){
+            recordsString = recordsString + (i+1) +"º -> " + tenBestTimesByOrder.get(i) + "\n";
+        }
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("YOUR 10 BEST TIMES");
+        alert.setHeaderText(recordsString);    
+        alert.showAndWait();
     }
 }

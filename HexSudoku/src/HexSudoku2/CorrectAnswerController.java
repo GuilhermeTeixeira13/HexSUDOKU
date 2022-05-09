@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -34,9 +35,13 @@ public class CorrectAnswerController implements Initializable {
     @FXML
     Button btnRecords;
 
+    @FXML
+    Label LabelNewRecord;
+
     String time;
     String userName;
     String content;
+
     StringBuilder stringBuilder;
     ArrayList<LocalTime> arrayTimes = new ArrayList<>();
     ArrayList<String> tenBestTimesByOrder = new ArrayList<>();
@@ -45,12 +50,27 @@ public class CorrectAnswerController implements Initializable {
     private Scene scene;
     private Parent root;
 
+    @FXML
+    public void initialize(URL url, ResourceBundle rb) {
+        labeltime.setText(this.time);
+      
+        LocalTime timeMade = LocalTime.parse(this.time, DateTimeFormatter.ofPattern("HH:mm:ss"));
+        if (timeMade.isBefore(arrayTimes.get(1))) {
+            LabelNewRecord.setVisible(true);
+            System.out.println("New record set! --> " + this.time);
+        } else {
+            LabelNewRecord.setVisible(false);
+        }
+    }
+
     public CorrectAnswerController(String time, String username) throws IOException {
         this.time = time;
         this.userName = username;
 
         BufferedReader reader;
         try {
+            LocalTime timeMade = LocalTime.parse(this.time, DateTimeFormatter.ofPattern("HH:mm:ss"));
+
             reader = new BufferedReader(new FileReader("Records.txt"));
             this.stringBuilder = new StringBuilder();
             String line = null;
@@ -61,10 +81,12 @@ public class CorrectAnswerController implements Initializable {
                 stringBuilder.append(ls);
             }
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+
             reader.close();
 
             this.content = stringBuilder.toString();
             this.content = this.content + this.time;
+            arrayTimes.add(LocalTime.parse(timeMade.toString(), DateTimeFormatter.ofPattern("HH:mm:ss")));
 
             FileWriter myWriter = new FileWriter("Records.txt");
             myWriter.write(this.content);
@@ -81,12 +103,17 @@ public class CorrectAnswerController implements Initializable {
     }
 
     @FXML
-    public void initialize(URL url, ResourceBundle rb) {
-        labeltime.setText(this.time);
-    }
-
-    @FXML
     private void records(ActionEvent event) throws IOException {
         System.out.println("\n10 best times:\n" + tenBestTimesByOrder.toString());
+
+        String recordsString = "";
+        for (int i = 0; i < tenBestTimesByOrder.size(); i++) {
+            recordsString = recordsString + (i + 1) + "º -> " + tenBestTimesByOrder.get(i) + "\n";
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("YOUR 10 BEST TIMES");
+        alert.setHeaderText(recordsString);
+        alert.showAndWait();
     }
 }
