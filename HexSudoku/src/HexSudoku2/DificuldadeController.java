@@ -23,6 +23,9 @@ public class DificuldadeController {
 
     @FXML
     Label labelUsername;
+    
+    @FXML
+    Label btnLogOut;
 
     String pw;
     int dif;
