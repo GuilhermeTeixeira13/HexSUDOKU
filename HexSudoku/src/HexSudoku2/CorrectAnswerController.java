@@ -49,7 +49,6 @@ public class CorrectAnswerController implements Initializable {
     String content;
 
     StringBuilder stringBuilder;
-    ArrayList<PairsTimeDate> arrayTimesDates = new ArrayList<>();
     ArrayList<PairsStringString> tenBestTimesDatesByOrder = new ArrayList<>();
 
     private Stage stage;
@@ -132,12 +131,11 @@ public class CorrectAnswerController implements Initializable {
 
     @FXML
     private void records(ActionEvent event) throws IOException {
-        System.out.println("\n10 best times:\n" + tenBestTimesDatesByOrder.toString());
-
         String recordsString = "";
         for (int i = 0; i < tenBestTimesDatesByOrder.size(); i++) {
             recordsString = recordsString + (i + 1) + "º -> " + tenBestTimesDatesByOrder.get(i).time + " " + tenBestTimesDatesByOrder.get(i).date +"\n"; 
         }
+        System.out.println("10 best times:\n" + recordsString);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("YOUR " + tenBestTimesDatesByOrder.size() + " BEST TIMES");

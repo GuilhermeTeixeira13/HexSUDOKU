@@ -129,12 +129,11 @@ public class DificuldadeController {
         } catch (FileNotFoundException ex) {
         }
 
-        System.out.println("\n10 best times:\n" + tenBestTimesDatesByOrder.toString());
-
         String recordsString = "";
         for (int i = 0; i < tenBestTimesDatesByOrder.size(); i++) {
             recordsString = recordsString + (i + 1) + "º -> " + tenBestTimesDatesByOrder.get(i).time + " " + tenBestTimesDatesByOrder.get(i).date +"\n"; 
         }
+        System.out.println("10 best times:\n" + recordsString);
         
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("YOUR " + tenBestTimesDatesByOrder.size() + " BEST TIMES");

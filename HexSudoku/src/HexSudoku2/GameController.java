@@ -13,7 +13,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -377,12 +376,11 @@ public class GameController implements Initializable {
         } catch (FileNotFoundException ex) {
         }
 
-        System.out.println("\n10 best times:\n" + tenBestTimesDatesByOrder.toString());
-
         String recordsString = "";
         for (int i = 0; i < tenBestTimesDatesByOrder.size(); i++) {
             recordsString = recordsString + (i + 1) + "º -> " + tenBestTimesDatesByOrder.get(i).time + " " + tenBestTimesDatesByOrder.get(i).date +"\n"; 
         }
+        System.out.println("10 best times:\n" + recordsString);
         
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("YOUR " + tenBestTimesDatesByOrder.size() + " BEST TIMES");
