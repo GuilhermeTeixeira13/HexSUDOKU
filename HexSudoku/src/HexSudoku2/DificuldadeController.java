@@ -5,10 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -76,6 +76,7 @@ public class DificuldadeController {
         scene = new Scene(root);
         scene.getStylesheets().add("fxmlview.css");
         stage.setScene(scene);
+        stage.setTitle("HexSudoku - Easy");
         stage.show();
     }
 
@@ -92,6 +93,7 @@ public class DificuldadeController {
         scene = new Scene(root);
         scene.getStylesheets().add("fxmlview.css");
         stage.setScene(scene);
+        stage.setTitle("HexSudoku - Medium");
         stage.show();
     }
 
@@ -108,34 +110,50 @@ public class DificuldadeController {
         scene = new Scene(root);
         scene.getStylesheets().add("fxmlview.css");
         stage.setScene(scene);
+        stage.setTitle("HexSudoku - Hard");
         stage.show();
     }
 
     @FXML
     private void records(ActionEvent event) throws IOException {
         BufferedReader reader;
-        ArrayList<LocalTime> arrayTimes = new ArrayList<>();
-        ArrayList<String> tenBestTimesByOrder = new ArrayList<>();
+        ArrayList<PairsStringString> tenBestTimesDatesByOrder = new ArrayList<>();
+        PairsStringString timeDate;
+        int linesCount = 0;
         try {
             reader = new BufferedReader(new FileReader("Records.txt"));
             String line = null;
-            String ls = System.getProperty("line.separator");
             while ((line = reader.readLine()) != null) {
-                arrayTimes.add(LocalTime.parse(line, DateTimeFormatter.ofPattern("HH:mm:ss")));
+                linesCount++;
+            }
+            
+            tenBestTimesDatesByOrder.clear();
+            int limite = Math.min(10, linesCount);
+
+            int c = 0;
+            String lineContent[];
+            reader = new BufferedReader(new FileReader("Records.txt"));
+            while (((line = reader.readLine()) != null) && c < limite) {
+                lineContent = line.split(" ");
+                LocalDate date = LocalDate.parse(lineContent[1]);      
+                timeDate = new PairsStringString(lineContent[0], date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+                tenBestTimesDatesByOrder.add(timeDate);
             }
             reader.close();
-
-            Collections.sort(arrayTimes);
-            tenBestTimesByOrder.clear();
-            int limite = Math.min(10, arrayTimes.size());
-            for (int i = 0; i < limite; i++) {
-                tenBestTimesByOrder.add(arrayTimes.get(i).toString());
-            }
             
         } catch (FileNotFoundException ex) {
         }
 
-        System.out.println("\n10 best times:\n" + tenBestTimesByOrder.toString() + "\n");
+        String recordsString = "";
+        for (int i = 0; i < tenBestTimesDatesByOrder.size(); i++) {
+            recordsString = recordsString + (i + 1) + "º -> " + tenBestTimesDatesByOrder.get(i).time + " " + tenBestTimesDatesByOrder.get(i).date +"\n"; 
+        }
+        System.out.println("10 best times:\n" + recordsString);
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("YOUR " + tenBestTimesDatesByOrder.size() + " BEST TIMES");
+        alert.setHeaderText(recordsString);    
+        alert.showAndWait();
     }
     
     @FXML
