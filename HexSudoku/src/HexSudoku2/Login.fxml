@@ -13,15 +13,17 @@
    <bottom>
       <AnchorPane prefHeight="400.0" prefWidth="602.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="txtFieldUsername" layoutX="216.0" layoutY="212.0" prefHeight="34.0" prefWidth="155.0" promptText="Username" />
+            <TextField fx:id="txtFieldUsername" layoutX="222.0" layoutY="164.0" prefHeight="34.0" prefWidth="155.0" promptText="Username" />
             <Label fx:id="labelAvisoLogin" layoutX="155.0" layoutY="163.0" prefHeight="18.0" prefWidth="278.0" textFill="RED" />
-            <PasswordField fx:id="passFieldPassword" layoutX="216.0" layoutY="269.0" prefHeight="33.0" prefWidth="155.0" promptText="Password" />
-            <ImageView fitHeight="168.0" fitWidth="190.0" layoutX="210.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <PasswordField fx:id="passFieldPassword" layoutX="221.0" layoutY="215.0" prefHeight="33.0" prefWidth="155.0" promptText="Password" />
+            <ImageView fitHeight="168.0" fitWidth="190.0" layoutX="210.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@logoLoginSudoku.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnLogin" layoutX="246.0" layoutY="336.0" mnemonicParsing="false" onAction="#userLogin" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: white;" text="Log In" />
+            <Button fx:id="btnLogin" layoutX="198.0" layoutY="266.0" mnemonicParsing="false" onAction="#userLogin" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: white;" text="Log In" />
+            <Button fx:id="btnRegisto" layoutX="307.0" layoutY="266.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: white;" text="Registo" />
+            <Button fx:id="btnExit" layoutX="266.0" layoutY="338.0" mnemonicParsing="false" onAction="#exit" prefHeight="28.0" prefWidth="68.0" style="-fx-background-color: white;" text="EXIT" />
          </children>
       </AnchorPane>
    </bottom>
