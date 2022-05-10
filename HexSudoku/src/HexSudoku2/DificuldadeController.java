@@ -6,11 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,6 +62,7 @@ public class DificuldadeController {
         scene = new Scene(root);
         scene.getStylesheets().add("fxmlview.css");
         stage.setScene(scene);
+        stage.setTitle("HexSudoku - Easy");
         stage.show();
     }
 
@@ -80,6 +79,7 @@ public class DificuldadeController {
         scene = new Scene(root);
         scene.getStylesheets().add("fxmlview.css");
         stage.setScene(scene);
+        stage.setTitle("HexSudoku - Medium");
         stage.show();
     }
 
@@ -96,6 +96,7 @@ public class DificuldadeController {
         scene = new Scene(root);
         scene.getStylesheets().add("fxmlview.css");
         stage.setScene(scene);
+        stage.setTitle("HexSudoku - Hard");
         stage.show();
     }
 
