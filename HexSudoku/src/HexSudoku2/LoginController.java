@@ -7,11 +7,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class LoginController {
@@ -29,6 +32,7 @@ public class LoginController {
     PasswordField passFieldPassword;
     
     @FXML
+    private BorderPane sceneBorderPane;
     
     private Stage stage;
     private Scene scene;
@@ -69,6 +73,20 @@ public class LoginController {
             labelAvisoLogin.setText("Please enter your data.");
         } else {
             labelAvisoLogin.setText("Wrong username or password!");
+        }
+    }
+    
+    @FXML
+    public void exit(ActionEvent event) {
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("EXIT!");
+        alert.setHeaderText("You 're about to close the application!");
+        alert.setContentText("Are you sure you want to exit? ");
+        
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            stage = (Stage) sceneBorderPane.getScene().getWindow();
+            stage.close();
         }
     }
 }
