@@ -17,15 +17,23 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class DificuldadeController {
 
     @FXML
     Label labelUsername;
+    
+    @FXML
+    Button btnLogOut;
+    
+ 
 
-    String userName;
     String pw;
     int dif;
 
@@ -34,16 +42,22 @@ public class DificuldadeController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    
+    private String username;
 
     public void displayName(String username) {
-        this.userName = username;
-        System.out.println("Username -> " + this.userName + "\n");
-        labelUsername.setText(username + ", please choose the game's dificulty:");
+        this.username = username;
+        labelUsername.setText(username);
     }
 
     public void getpw(String pw) {
         this.pw = pw;
     }
+    
+     public String getUsername() {
+        return this.username;
+    }
+    
 
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -53,7 +67,7 @@ public class DificuldadeController {
     public void inicializaFacil(ActionEvent event) throws IOException {
         dif = 1;
 
-        GameController gameController = new GameController(dif, this.userName);
+        GameController gameController = new GameController(dif, this.getUsername());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
         loader.setController(gameController);
         Parent root = loader.load();
@@ -70,7 +84,7 @@ public class DificuldadeController {
     public void inicializaMedio(ActionEvent event) throws IOException {
         dif = 2;
 
-        GameController gameController = new GameController(dif, this.userName);
+        GameController gameController = new GameController(dif, this.getUsername());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
         loader.setController(gameController);
         Parent root = loader.load();
@@ -87,7 +101,7 @@ public class DificuldadeController {
     public void inicializaDificil(ActionEvent event) throws IOException {
         dif = 3;
 
-        GameController gameController = new GameController(dif, this.userName);
+        GameController gameController = new GameController(dif, this.getUsername());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
         loader.setController(gameController);
         Parent root = loader.load();
@@ -141,4 +155,17 @@ public class DificuldadeController {
         alert.setHeaderText(recordsString);    
         alert.showAndWait();
     }
+    
+    @FXML
+    public void logOutAction(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+        root = loader.load();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+   
 }

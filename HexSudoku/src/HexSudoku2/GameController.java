@@ -134,6 +134,10 @@ public class GameController implements Initializable {
         this.dificuldade = dif;
         this.nomeUser = username;
     }
+    
+    public String getUsername() {
+        return this.nomeUser;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -182,6 +186,20 @@ public class GameController implements Initializable {
             board.setVisible(false);
             btnpause.setText("Continue");
         }
+    }
+    
+    @FXML
+    private void quitGame(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDificuldade.fxml"));
+        root = loader.load();
+
+        DificuldadeController dificuldadeController = loader.getController();
+        dificuldadeController.displayName(this.getUsername());
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

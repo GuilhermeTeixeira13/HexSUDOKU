@@ -15,7 +15,9 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -50,6 +52,11 @@ public class CorrectAnswerController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    
+    public String getUsername() {
+            return this.userName;
+    }
+    
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
@@ -137,5 +144,19 @@ public class CorrectAnswerController implements Initializable {
         alert.setTitle("YOUR " + tenBestTimesDatesByOrder.size() + " BEST TIMES");
         alert.setHeaderText(recordsString);
         alert.showAndWait();
+    }
+    
+    @FXML
+    private void quitGame(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDificuldade.fxml"));
+        root = loader.load();
+
+        DificuldadeController dificuldadeController = loader.getController();
+        dificuldadeController.displayName(this.getUsername());
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
