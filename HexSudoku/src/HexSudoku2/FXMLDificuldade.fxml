@@ -39,12 +39,12 @@
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btnLogOut" mnemonicParsing="false" onAction="#logOutAction" prefHeight="33.0" prefWidth="63.0" style="-fx-background-color: rgb(82, 82, 82); -fx-border-color: red; -fx-border-width: 2px;" text="Log Out" textFill="WHITE" GridPane.columnIndex="2">
+            <Button fx:id="btnLogOut" mnemonicParsing="false" onAction="#logOutAction" prefHeight="38.0" prefWidth="134.0" style="-fx-background-color: rgb(82, 82, 82); -fx-border-color: red; -fx-border-width: 2px;" text="Log Out" textFill="WHITE" GridPane.columnIndex="2">
                <font>
-                  <Font name="Arial Black" size="8.0" />
+                  <Font name="Arial Black" size="15.0" />
                </font>
                <GridPane.margin>
-                  <Insets bottom="-200.0" left="75.0" top="1.0" />
+                  <Insets bottom="-200.0" left="-150.0" top="1.0" />
                </GridPane.margin>
             </Button>
          </children>
@@ -66,7 +66,7 @@
             <Font name="Arial Black" size="15.0" />
          </font>
          <BorderPane.margin>
-            <Insets bottom="25.0" left="10.0" />
+            <Insets bottom="25.0" left="-150.0" />
          </BorderPane.margin>
       </Button>
    </bottom>
