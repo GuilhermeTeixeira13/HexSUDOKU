@@ -147,7 +147,7 @@ public class CorrectAnswerController implements Initializable {
     }
     
     @FXML
-    private void quitGame(ActionEvent event) throws IOException {
+    private void playAgain(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDificuldade.fxml"));
         root = loader.load();
 
@@ -158,6 +158,18 @@ public class CorrectAnswerController implements Initializable {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("HexSudoku - Dificulty level");
+        stage.show();
+    }
+    
+    @FXML
+    public void logOutAction(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+        root = loader.load();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("HexSudoku - Login");
         stage.show();
     }
 }
