@@ -220,11 +220,6 @@
                         <Insets left="360.0" />
                      </GridPane.margin>
                   </Label>
-                  <Button fx:id="btnQuit1" mnemonicParsing="false" onAction="#quitGame" prefHeight="35.0" prefWidth="94.0" style="-fx-background-color: rgb(82, 82, 82); -fx-border-color: red; -fx-border-width: 2px;" text="QUIT" textFill="WHITE">
-                     <font>
-                        <Font name="Arial Black" size="12.0" />
-                     </font>
-                  </Button>
                </children>
             </GridPane>
          </children>
