@@ -138,5 +138,16 @@ public class DificuldadeController {
         System.out.println("\n10 best times:\n" + tenBestTimesByOrder.toString() + "\n");
     }
     
+    @FXML
+    public void logOutAction(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+        root = loader.load();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
    
 }
