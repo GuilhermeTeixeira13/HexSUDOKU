@@ -157,6 +157,7 @@ public class CorrectAnswerController implements Initializable {
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
+        scene.getStylesheets().add("fxmlview.css");
         stage.setScene(scene);
         stage.setTitle("HexSudoku - Dificulty level");
         stage.show();
@@ -169,6 +170,7 @@ public class CorrectAnswerController implements Initializable {
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
+        scene.getStylesheets().add("fxmlview.css");
         stage.setScene(scene);
         stage.setTitle("HexSudoku - Login");
         stage.show();

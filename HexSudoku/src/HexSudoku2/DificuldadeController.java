@@ -160,7 +160,7 @@ public class DificuldadeController {
         root = loader.load();
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        scene = new Scene(root);scene.getStylesheets().add("fxmlview.css");
         stage.setScene(scene);
         stage.setTitle("HexSudoku - Login");
         stage.show();

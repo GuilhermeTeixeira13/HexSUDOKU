@@ -1,9 +1,18 @@
+.button {
+    -fx-background-color: rgb(82, 82, 82);
+}
+
 .button:hover {
-    -fx-background-color:lime;
+    -fx-background-color: rgb(82, 82, 82);
     -fx-background-radius:0;
-    -fx-border-color:white;
-    -fx-border-width: 0 3 3 0;
+    
+    -fx-border-color: white;
+    
+    -fx-border-width: 2 2 2 2;
     -fx-background-insets: 0;
+    
+    -fx-background-insets: 0.0,1.0,2.0,0.0;
+    -fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 5.0, 0.0 , 0.0 , 1.0 );
 }
 
 .root {

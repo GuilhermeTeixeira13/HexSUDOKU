@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -112,16 +113,16 @@ public class GameController implements Initializable {
 
     @FXML
     Button btnDelete;
-    
+
     @FXML
     Button btnPlayAgain;
-    
+
     @FXML
     Button btnlogOut;
 
     @FXML
     Button[] arrayButtons;
-    
+
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -137,7 +138,7 @@ public class GameController implements Initializable {
         this.dificuldade = dif;
         this.nomeUser = username;
     }
-    
+
     public String getUsername() {
         return this.nomeUser;
     }
@@ -190,7 +191,7 @@ public class GameController implements Initializable {
             btnpause.setText("Continue");
         }
     }
-    
+
     @FXML
     private void playAgain(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDificuldade.fxml"));
@@ -205,9 +206,9 @@ public class GameController implements Initializable {
         stage.setTitle("HexSudoku - Dificulty level");
         stage.show();
     }
-    
+
     @FXML
-    public void logOutAction(ActionEvent event) throws IOException{
+    public void logOutAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
         root = loader.load();
 
@@ -287,6 +288,15 @@ public class GameController implements Initializable {
                                 });
                             }
                         });
+                        
+                        PauseTransition transition = new PauseTransition(Duration.seconds(1.4));
+                        transition.setOnFinished(event -> but.setStyle("-fx-background-color:  rgb(82, 82, 82);"));
+
+                        but.setOnMouseClicked(event -> {
+                            event.consume();
+                            but.setStyle("-fx-background-color: rgb(104, 108, 220);");
+                            transition.playFromStart();
+                        });
                     }
 
                     btnDelete.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -324,6 +334,7 @@ public class GameController implements Initializable {
 
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
+                scene.getStylesheets().add("fxmlview.css");
                 stage.setScene(scene);
                 stage.setTitle("HexSudoku - Correct Answer!");
                 stage.show();
@@ -380,7 +391,7 @@ public class GameController implements Initializable {
         }
         return true;
     }
-    
+
     @FXML
     private void records(ActionEvent event) throws IOException {
         BufferedReader reader;
@@ -393,7 +404,7 @@ public class GameController implements Initializable {
             while ((line = reader.readLine()) != null) {
                 linesCount++;
             }
-            
+
             tenBestTimesDatesByOrder.clear();
             int limite = Math.min(10, linesCount);
 
@@ -402,25 +413,25 @@ public class GameController implements Initializable {
             reader = new BufferedReader(new FileReader("Records.txt"));
             while (((line = reader.readLine()) != null) && c < limite) {
                 lineContent = line.split(" ");
-                LocalDate date = LocalDate.parse(lineContent[1]);      
+                LocalDate date = LocalDate.parse(lineContent[1]);
                 timeDate = new PairsStringString(lineContent[0], date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
                 tenBestTimesDatesByOrder.add(timeDate);
                 c++;
             }
             reader.close();
-            
+
         } catch (FileNotFoundException ex) {
         }
 
         String recordsString = "";
         for (int i = 0; i < tenBestTimesDatesByOrder.size(); i++) {
-            recordsString = recordsString + (i + 1) + "º -> " + tenBestTimesDatesByOrder.get(i).time + " " + tenBestTimesDatesByOrder.get(i).date +"\n"; 
+            recordsString = recordsString + (i + 1) + "º -> " + tenBestTimesDatesByOrder.get(i).time + " " + tenBestTimesDatesByOrder.get(i).date + "\n";
         }
         System.out.println("10 best times:\n" + recordsString);
-        
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("YOUR " + tenBestTimesDatesByOrder.size() + " BEST TIMES");
-        alert.setHeaderText(recordsString);    
+        alert.setHeaderText(recordsString);
         alert.showAndWait();
     }
 }

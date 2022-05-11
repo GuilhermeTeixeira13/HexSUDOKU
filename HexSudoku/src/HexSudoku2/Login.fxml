@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="sceneBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: rgb(186, 222, 252);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HexSudoku2.LoginController">
    <bottom>
@@ -21,9 +22,18 @@
                   <Image url="@logoLoginSudoku.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnLogin" layoutX="198.0" layoutY="266.0" mnemonicParsing="false" onAction="#userLogin" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: white; -fx-border-color: blue;" text="Log In" textFill="#181818" />
-            <Button fx:id="btnRegisto" layoutX="307.0" layoutY="266.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: white; -fx-border-color: blue;" text="Registo" />
-            <Button fx:id="btnExit" layoutX="266.0" layoutY="338.0" mnemonicParsing="false" onAction="#exit" prefHeight="28.0" prefWidth="68.0" style="-fx-background-color: black; -fx-border-color: red;" text="EXIT" textFill="RED" />
+            <Button fx:id="btnLogin" layoutX="198.0" layoutY="266.0" mnemonicParsing="false" onAction="#userLogin" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: white; -fx-border-color: blue;" text="LOGIN" textFill="#181818">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnRegisto" layoutX="307.0" layoutY="266.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: white; -fx-border-color: blue;" text="REGISTER">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnExit" layoutX="266.0" layoutY="338.0" mnemonicParsing="false" onAction="#exit" prefHeight="28.0" prefWidth="68.0" style="-fx-background-color: rgb(82, 82, 82); -fx-border-color: red;" text="EXIT" textFill="RED">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font></Button>
          </children>
       </AnchorPane>
    </bottom>
