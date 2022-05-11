@@ -405,6 +405,7 @@ public class GameController implements Initializable {
                 LocalDate date = LocalDate.parse(lineContent[1]);      
                 timeDate = new PairsStringString(lineContent[0], date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
                 tenBestTimesDatesByOrder.add(timeDate);
+                c++;
             }
             reader.close();
             
