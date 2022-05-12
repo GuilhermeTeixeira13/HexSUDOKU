@@ -2,6 +2,7 @@ package HexSudoku2;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,7 +53,7 @@ public class LoginController {
         String username = txtFieldUsername.getText();
         String pw = passFieldPassword.getText();
         int cred = checkLogin();
-        if (cred == 1) {
+        if (cred != -1) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDificuldade.fxml"));
             root = loader.load();
 
@@ -70,26 +71,32 @@ public class LoginController {
     }
 
     public int checkLogin() throws IOException {
-        File file = new File("C:\\Users\\joaob\\OneDrive\\Documentos\\GitHub\\HexSudokuTeste\\HexSudoku\\src\\HexSudoku2\\accounts.txt");
-        Scanner scan = new Scanner(file);
         String usernameRecebido = txtFieldUsername.getText();
         String passwordRecebida = passFieldPassword.getText();
-        int validacaoCredenciais = 0;
+        int validacaoCredenciais = -1;
 
         if ((!txtFieldUsername.getText().isEmpty()) && (!passFieldPassword.getText().isEmpty())) {
-            while (scan.hasNextLine()) {
+            ArrayList<String> usernameArray = new ArrayList<String>();
+            ArrayList<String> passwordArray = new ArrayList<String>();
+            File file = new File("C:\\Users\\joaob\\OneDrive\\Documentos\\GitHub\\HexSudokuTeste\\HexSudoku\\src\\HexSudoku2\\accounts.txt");
+            Scanner scan = new Scanner(file);
+            while(scan.hasNextLine()) {
                 String fileContent = "";
                 fileContent = scan.nextLine();
-                if (fileContent.contains("Username: " + usernameRecebido) && fileContent.contains("Password: " + passwordRecebida)) {
-                    validacaoCredenciais = 1;
-                }
-                else {
-                    labelAvisoLogin.setText("Wrong username or password!");
+                String [] usernamepass = fileContent.split(" ");
+                usernameArray.add(usernamepass[0]);
+                passwordArray.add(usernamepass[1]);
+            }
+            for(int i = 0; i < usernameArray.size(); i++) {
+                if(usernameArray.get(i).equals("Username:" + usernameRecebido) && passwordArray.get(i).equals("Password:" + passwordRecebida)) {
+                    validacaoCredenciais = i;
                 }
             }
-        } else if (txtFieldUsername.getText().isEmpty() && passFieldPassword.getText().isEmpty()) {
+        }
+        else {
             labelAvisoLogin.setText("Please enter your data.");
-        } else {
+        }
+        if(validacaoCredenciais == -1 && (!txtFieldUsername.getText().isEmpty()) && (!passFieldPassword.getText().isEmpty())) {
             labelAvisoLogin.setText("Wrong username or password!");
         }
         return validacaoCredenciais;
