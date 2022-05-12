@@ -1,9 +1,15 @@
 package HexSudoku2;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +25,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 
 public class LoginController {
 
@@ -40,6 +50,8 @@ public class LoginController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    
+    Encrypt encrypt = new Encrypt();
 
     @FXML
     Image logoSudoku = new Image(getClass().getResourceAsStream("logoLoginSudoku.png"));
@@ -50,27 +62,43 @@ public class LoginController {
 
     public void userLogin(ActionEvent event) throws IOException {
 
-        String username = txtFieldUsername.getText();
-        String pw = passFieldPassword.getText();
-        int cred = checkLogin();
-        if (cred != -1) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDificuldade.fxml"));
-            root = loader.load();
-
-            DificuldadeController dificuldadeController = loader.getController();
-            dificuldadeController.displayName(username);
-            dificuldadeController.getpw(pw);
-
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            scene.getStylesheets().add("fxmlview.css");
-            stage.setScene(scene);
-            stage.setTitle("HexSudoku - Dificulty level");
-            stage.show();
+        try {
+            String username = txtFieldUsername.getText();
+            String pw = passFieldPassword.getText();
+            int cred = checkLogin();
+            if (cred != -1) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDificuldade.fxml"));
+                root = loader.load();
+                
+                DificuldadeController dificuldadeController = loader.getController();
+                dificuldadeController.displayName(username);
+                dificuldadeController.getpw(pw);
+                
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                scene.getStylesheets().add("fxmlview.css");
+                stage.setScene(scene);
+                stage.setTitle("HexSudoku - Dificulty level");
+                stage.show();
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeyException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchPaddingException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalBlockSizeException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BadPaddingException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public int checkLogin() throws IOException {
+    public int checkLogin() throws IOException, FileNotFoundException, InvalidKeyException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, IllegalBlockSizeException, IllegalBlockSizeException, IllegalBlockSizeException, BadPaddingException {
         String usernameRecebido = txtFieldUsername.getText();
         String passwordRecebida = passFieldPassword.getText();
         int validacaoCredenciais = -1;
@@ -99,6 +127,9 @@ public class LoginController {
         if(validacaoCredenciais == -1 && (!txtFieldUsername.getText().isEmpty()) && (!passFieldPassword.getText().isEmpty())) {
             labelAvisoLogin.setText("Wrong username or password!");
         }
+        SecretKey secretKey = encrypt.keyGenerator();
+        byte[] encryByte = encrypt.encrypted(secretKey);
+        encrypt.decrypted(secretKey, encryByte);
         return validacaoCredenciais;
     }
 
