@@ -1,6 +1,8 @@
 package HexSudoku2;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,57 +29,72 @@ public class LoginController {
     
     @FXML
     ImageView imageViewSudokuLogo;
-    
+
     @FXML
     PasswordField passFieldPassword;
-    
+
     @FXML
     private BorderPane sceneBorderPane;
-    
+
     private Stage stage;
     private Scene scene;
     private Parent root;
-    
+
     @FXML
     Image logoSudoku = new Image(getClass().getResourceAsStream("logoLoginSudoku.png"));
-    
+
     public void displayImageLogoSudoku() {
         imageViewSudokuLogo.setImage(logoSudoku);
     }
-    
-    
-    
+
     public void userLogin(ActionEvent event) throws IOException {
-        checkLogin();
 
         String username = txtFieldUsername.getText();
         String pw = passFieldPassword.getText();
+        int cred = checkLogin();
+        if (cred == 1) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDificuldade.fxml"));
+            root = loader.load();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDificuldade.fxml"));
-        root = loader.load();
+            DificuldadeController dificuldadeController = loader.getController();
+            dificuldadeController.displayName(username);
+            dificuldadeController.getpw(pw);
 
-        DificuldadeController dificuldadeController = loader.getController();
-        dificuldadeController.displayName(username);
-        dificuldadeController.getpw(pw);
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        scene.getStylesheets().add("fxmlview.css");
-        stage.setScene(scene);
-        stage.setTitle("HexSudoku - Dificulty level");
-        stage.show();
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            scene.getStylesheets().add("fxmlview.css");
+            stage.setScene(scene);
+            stage.setTitle("HexSudoku - Dificulty level");
+            stage.show();
+        }
     }
 
-    public void checkLogin() {
-        if (txtFieldUsername.getText().toString().equals("javacoding") && passFieldPassword.getText().toString().equals("123")) {
-            labelAvisoLogin.setText("Sucess!");  
+    public int checkLogin() throws IOException {
+        File file = new File("C:\\Users\\joaob\\OneDrive\\Documentos\\GitHub\\HexSudokuTeste\\HexSudoku\\src\\HexSudoku2\\accounts.txt");
+        Scanner scan = new Scanner(file);
+        String usernameRecebido = txtFieldUsername.getText();
+        String passwordRecebida = passFieldPassword.getText();
+        int validacaoCredenciais = 0;
+
+        if ((!txtFieldUsername.getText().isEmpty()) && (!passFieldPassword.getText().isEmpty())) {
+            while (scan.hasNextLine()) {
+                String fileContent = "";
+                fileContent = scan.nextLine();
+                if (fileContent.contains("Username: " + usernameRecebido) && fileContent.contains("Password: " + passwordRecebida)) {
+                    validacaoCredenciais = 1;
+                }
+                else {
+                    labelAvisoLogin.setText("Wrong username or password!");
+                }
+            }
         } else if (txtFieldUsername.getText().isEmpty() && passFieldPassword.getText().isEmpty()) {
             labelAvisoLogin.setText("Please enter your data.");
         } else {
             labelAvisoLogin.setText("Wrong username or password!");
         }
+        return validacaoCredenciais;
     }
-    
+
     @FXML
     public void exit(ActionEvent event) {
         

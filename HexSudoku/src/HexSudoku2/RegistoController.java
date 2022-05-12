@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.event.ActionEvent;
@@ -63,30 +65,31 @@ public class RegistoController implements Initializable {
     
     @FXML
     public void registerEvent(ActionEvent event) throws IOException{
-        int jaExisteUsername = 0;
-        
+        int jaExisteUsername = -1;
+        ArrayList<String> usernameArray = new ArrayList<String>();
+        ArrayList<String> passwordArray = new ArrayList<String>();
         File file = new File("C:\\Users\\joaob\\OneDrive\\Documentos\\GitHub\\HexSudokuTeste\\HexSudoku\\src\\HexSudoku2\\accounts.txt");
         Scanner scan = new Scanner(file);
-        
-        
         while(scan.hasNextLine()) {
             String fileContent = "";
             fileContent = scan.nextLine();
-            if(fileContent.contains("Username: " + txtFieldUsername.getText())) {
-                jaExisteUsername = -1;
-                labelAvisoRegisto.setText("Já existe o username " + txtFieldUsername.getText());
-                labelAvisoRegisto.setStyle("-fx-text-fill: red");
-                System.out.println("Já existe o username: " + txtFieldUsername.getText() + "\n");
+            String [] usernamepass = fileContent.split(" ");
+            usernameArray.add(usernamepass[0]);
+            passwordArray.add(usernamepass[1]);
+        }
+        for(int i = 0; i < usernameArray.size(); i++) {
+            if(usernameArray.get(i).equals("Username:" + txtFieldUsername.getText())) {
+                jaExisteUsername = i;
             }
         }
         
         
         
-        if (jaExisteUsername != -1) {
+        if (jaExisteUsername == -1) {
             try {
                 FileWriter writer = new FileWriter(
                         ("C:\\Users\\joaob\\OneDrive\\Documentos\\GitHub\\HexSudokuTeste\\HexSudoku\\src\\HexSudoku2\\accounts.txt"), true);
-                writer.write("Username: " + txtFieldUsername.getText() + "  Password: " + passFieldPassword.getText() + "\n");
+                writer.write("Username:" + txtFieldUsername.getText() + " Password:" + passFieldPassword.getText() + "\n");
                 writer.close();
                 labelAvisoRegisto.setText("Registado com sucesso");
                 labelAvisoRegisto.setStyle("-fx-text-fill: green");
@@ -96,6 +99,10 @@ public class RegistoController implements Initializable {
             } catch (Exception ex) {
                 System.out.println("Problema na escrita para o ficheiro!");
             }
+        }
+        else {
+            labelAvisoRegisto.setText("Nome " + txtFieldUsername.getText() + " em utilização!");
+            labelAvisoRegisto.setStyle("-fx-text-fill: red");
         }
     
     }
