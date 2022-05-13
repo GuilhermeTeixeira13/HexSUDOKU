@@ -114,7 +114,7 @@ public class DificuldadeController {
     @FXML
     private void records(ActionEvent event) throws IOException {
         BufferedReader reader;
-        ArrayList<StringStringString> tenBestTimesDatesByOrder = new ArrayList<>();
+        ArrayList<StringStringString> BestTimesDatesByOrder = new ArrayList<>();
         StringStringString timeDate;
         int linesCount = 0;
         try {
@@ -124,17 +124,16 @@ public class DificuldadeController {
                 linesCount++;
             }
 
-            tenBestTimesDatesByOrder.clear();
-            int limite = Math.min(10, linesCount);
+            BestTimesDatesByOrder.clear();
 
             int c = 0;
             String lineContent[];
             reader = new BufferedReader(new FileReader("Records.txt"));
-            while (((line = reader.readLine()) != null) && c < limite) {
+            while ((line = reader.readLine()) != null) {
                 lineContent = line.split(" ");
                 LocalDate date = LocalDate.parse(lineContent[1]);
                 timeDate = new StringStringString(lineContent[0], date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)), lineContent[2]);
-                tenBestTimesDatesByOrder.add(timeDate);
+                BestTimesDatesByOrder.add(timeDate);
                 c++;
             }
             reader.close();
@@ -145,9 +144,9 @@ public class DificuldadeController {
         String recordsString = "";
         
         int count=0;
-        for (int i = 0; i < tenBestTimesDatesByOrder.size(); i++) {
-            if(tenBestTimesDatesByOrder.get(i).user.equals(this.username)){
-                recordsString = recordsString + (count + 1) + "º -> " + tenBestTimesDatesByOrder.get(i).time + " " + tenBestTimesDatesByOrder.get(i).date + "\n"; 
+        for (int i = 0; i < BestTimesDatesByOrder.size(); i++) {
+            if(BestTimesDatesByOrder.get(i).user.equals(this.username)){
+                recordsString = recordsString + (count + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + "\n"; 
                 count++;
             }   
         }
@@ -156,7 +155,7 @@ public class DificuldadeController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         
         if(count > 0 ){
-            alert.setTitle("YOUR " + tenBestTimesDatesByOrder.size() + " BEST TIMES");
+            alert.setTitle("YOUR " + count + " BEST TIMES");
             alert.setHeaderText(recordsString);
         }
         else{

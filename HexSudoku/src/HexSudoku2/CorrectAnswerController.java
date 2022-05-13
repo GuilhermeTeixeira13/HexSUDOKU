@@ -47,39 +47,48 @@ public class CorrectAnswerController implements Initializable {
     String content;
 
     StringBuilder stringBuilder;
-    ArrayList<StringStringString> tenBestTimesDatesByOrder = new ArrayList<>();
+    ArrayList<StringStringString> BestTimesDatesByOrder = new ArrayList<>();
 
     private Stage stage;
     private Scene scene;
     private Parent root;
-    
+
     public String getUsername() {
-            return this.userName;
+        return this.userName;
     }
-    
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         labeltime.setText(this.time);
 
         LocalTime timeMade = LocalTime.parse(this.time, DateTimeFormatter.ofPattern("HH:mm:ss"));
+        
+        ArrayList<String> melhoresTemposUser = new ArrayList<>();
+        for (int i = 0; i < BestTimesDatesByOrder.size(); i++) {
+            if (BestTimesDatesByOrder.get(i).user.equals(this.userName)) {
+                melhoresTemposUser.add(BestTimesDatesByOrder.get(i).time);
+            }
+        }
+        
+        System.out.println(melhoresTemposUser);
 
-        if (tenBestTimesDatesByOrder.size() == 1) {
-            if (timeMade.isBefore(LocalTime.parse(tenBestTimesDatesByOrder.get(0).time, DateTimeFormatter.ofPattern("HH:mm:ss"))) || timeMade.compareTo(LocalTime.parse(tenBestTimesDatesByOrder.get(0).time, DateTimeFormatter.ofPattern("HH:mm:ss"))) == 0) {
+        if (melhoresTemposUser.size() == 1) {
+            if (timeMade.isBefore(LocalTime.parse(melhoresTemposUser.get(1), DateTimeFormatter.ofPattern("HH:mm:ss"))) || timeMade.compareTo(LocalTime.parse(melhoresTemposUser.get(0), DateTimeFormatter.ofPattern("HH:mm:ss"))) == 0) {
                 LabelNewRecord.setVisible(true);
                 System.out.println("New record set! --> " + this.time);
             } else {
+                System.out.println("aqui1");
                 LabelNewRecord.setVisible(false);
             }
         } else {
-            if (timeMade.isBefore(LocalTime.parse(tenBestTimesDatesByOrder.get(1).time, DateTimeFormatter.ofPattern("HH:mm:ss")))) {
+            if (timeMade.isBefore(LocalTime.parse(melhoresTemposUser.get(1), DateTimeFormatter.ofPattern("HH:mm:ss")))) {
                 LabelNewRecord.setVisible(true);
                 System.out.println("New record set! --> " + this.time);
             } else {
+                System.out.println("aqui2");
                 LabelNewRecord.setVisible(false);
             }
         }
-
     }
 
     public CorrectAnswerController(String time, String username) throws IOException {
@@ -89,7 +98,7 @@ public class CorrectAnswerController implements Initializable {
         BufferedReader reader;
         int linesCount = 1;
         try {
-            reader = new BufferedReader(new FileReader("C:\\Users\\joaob\\OneDrive\\Documentos\\GitHub\\HexSudokuTeste\\HexSudoku\\src\\HexSudoku2\\Records.txt"));
+            reader = new BufferedReader(new FileReader("Records.txt"));
             this.stringBuilder = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {
@@ -101,7 +110,7 @@ public class CorrectAnswerController implements Initializable {
             reader.close();
 
             this.content = stringBuilder.toString();
-            this.content = this.content + this.time + " " + LocalDate.now().toString()+ " " + username;
+            this.content = this.content + this.time + " " + LocalDate.now().toString() + " " + username;
 
             String fileContent[] = this.content.split("\n");
             Arrays.sort(fileContent);
@@ -114,17 +123,16 @@ public class CorrectAnswerController implements Initializable {
             myWriter.write(this.content);
             myWriter.close();
 
-            tenBestTimesDatesByOrder.clear();
-            int limite = Math.min(10, linesCount);
+            BestTimesDatesByOrder.clear();
 
             int c = 0;
             String lineContent[];
             reader = new BufferedReader(new FileReader("Records.txt"));
-            while (((line = reader.readLine()) != null) && c < limite) {
+            while (((line = reader.readLine()) != null)) {
                 lineContent = line.split(" ");
-                LocalDate date = LocalDate.parse(lineContent[1]);      
+                LocalDate date = LocalDate.parse(lineContent[1]);
                 timeDate = new StringStringString(lineContent[0], date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)), lineContent[2]);
-                tenBestTimesDatesByOrder.add(timeDate);
+                BestTimesDatesByOrder.add(timeDate);
                 c++;
             }
             reader.close();
@@ -136,30 +144,29 @@ public class CorrectAnswerController implements Initializable {
     @FXML
     private void records(ActionEvent event) throws IOException {
         String recordsString = "";
-        
+
         int count=0;
-        for (int i = 0; i < tenBestTimesDatesByOrder.size(); i++) {
-            if(tenBestTimesDatesByOrder.get(i).user.equals(this.userName)){
-                recordsString = recordsString + (count + 1) + "º -> " + tenBestTimesDatesByOrder.get(i).time + " " + tenBestTimesDatesByOrder.get(i).date + "\n"; 
+        for (int i = 0; i < BestTimesDatesByOrder.size(); i++) {
+            if(BestTimesDatesByOrder.get(i).user.equals(this.userName)){
+                recordsString = recordsString + (count + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + "\n"; 
                 count++;
             }   
         }
         System.out.println("10 best times:\n" + recordsString);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        
-        if(count != 0 ){
-            alert.setTitle("YOUR " + tenBestTimesDatesByOrder.size() + " BEST TIMES");
+
+        if (count != 0) {
+            alert.setTitle("YOUR " + count + " BEST TIMES");
             alert.setHeaderText(recordsString);
-        }
-        else{
+        } else {
             alert.setTitle("NO RECORDS");
             alert.setHeaderText("You didnt complete any board yet!");
         }
-    
+
         alert.showAndWait();
     }
-    
+
     @FXML
     private void playAgain(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDificuldade.fxml"));
@@ -175,9 +182,9 @@ public class CorrectAnswerController implements Initializable {
         stage.setTitle("HexSudoku - Dificulty level");
         stage.show();
     }
-    
+
     @FXML
-    public void logOutAction(ActionEvent event) throws IOException{
+    public void logOutAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
         root = loader.load();
 

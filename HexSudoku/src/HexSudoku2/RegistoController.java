@@ -82,7 +82,7 @@ public class RegistoController implements Initializable {
         int space = 0;
         ArrayList<String> usernameArray = new ArrayList<String>();
         ArrayList<String> passwordArray = new ArrayList<String>();
-        File file = new File("C:\\Users\\joaob\\OneDrive\\Documentos\\GitHub\\HexSudokuTeste\\HexSudoku\\src\\HexSudoku2\\accounts.txt");
+        File file = new File("accounts.txt");
         String usernamepassString = txtFieldUsername.getText() + passFieldPassword.getText(); 
         Scanner scan = new Scanner(file);
         Decoder decoder = Base64.getDecoder();
@@ -116,7 +116,7 @@ public class RegistoController implements Initializable {
 
         if (jaExisteUsername == -1 && space == 0) {
             try {
-                FileWriter writer = new FileWriter(("C:\\Users\\joaob\\OneDrive\\Documentos\\GitHub\\HexSudokuTeste\\HexSudoku\\src\\HexSudoku2\\accounts.txt"), true);
+                FileWriter writer = new FileWriter(("accounts.txt"), true);
                 Encoder encoder = Base64.getEncoder();
                 writer.write(encoder.encodeToString(txtFieldUsername.getText().getBytes()) + " " + encoder.encodeToString(passFieldPassword.getText().getBytes()) + "\n");
                 writer.close();
