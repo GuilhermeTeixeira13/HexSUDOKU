@@ -2,10 +2,17 @@ package HexSudoku2;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -22,6 +29,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 
 
 public class RegistoController implements Initializable {
@@ -43,6 +54,7 @@ public class RegistoController implements Initializable {
     
     @FXML
     Label labelAvisoRegisto;
+ 
     
     private Stage stage;
     private Scene scene;
@@ -64,32 +76,37 @@ public class RegistoController implements Initializable {
     }
     
     @FXML
-    public void registerEvent(ActionEvent event) throws IOException{
+    public void registerEvent(ActionEvent event) throws IOException, FileNotFoundException, InvalidKeyException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, IllegalBlockSizeException, IllegalBlockSizeException, IllegalBlockSizeException, BadPaddingException{
         int jaExisteUsername = -1;
         ArrayList<String> usernameArray = new ArrayList<String>();
         ArrayList<String> passwordArray = new ArrayList<String>();
-        File file = new File("C:\\Users\\joaob\\OneDrive\\Documentos\\GitHub\\HexSudokuTeste\\HexSudoku\\src\\HexSudoku2\\accounts.txt");
+        
+        File file = new File("accounts.txt");
+                
         Scanner scan = new Scanner(file);
+        Decoder decoder = Base64.getDecoder();
         while(scan.hasNextLine()) {
             String fileContent = "";
             fileContent = scan.nextLine();
-            String [] usernamepass = fileContent.split(" ");
-            usernameArray.add(usernamepass[0]);
-            passwordArray.add(usernamepass[1]);
+
+            String[] usernamepass = fileContent.split(" ");
+            
+            if(!fileContent.equals("")){
+                usernameArray.add(new String(decoder.decode(usernamepass[0])));
+                passwordArray.add(new String(decoder.decode(usernamepass[1])));   
+            }
         }
         for(int i = 0; i < usernameArray.size(); i++) {
-            if(usernameArray.get(i).equals("Username:" + txtFieldUsername.getText())) {
+            if(usernameArray.get(i).equals(txtFieldUsername.getText())) {
                 jaExisteUsername = i;
             }
         }
-        
-        
-        
+         
         if (jaExisteUsername == -1) {
             try {
-                FileWriter writer = new FileWriter(
-                        ("C:\\Users\\joaob\\OneDrive\\Documentos\\GitHub\\HexSudokuTeste\\HexSudoku\\src\\HexSudoku2\\accounts.txt"), true);
-                writer.write("Username:" + txtFieldUsername.getText() + " Password:" + passFieldPassword.getText() + "\n");
+                FileWriter writer = new FileWriter(("accounts.txt"), true);
+                Encoder encoder = Base64.getEncoder();
+                writer.write(encoder.encodeToString(txtFieldUsername.getText().getBytes()) + " " + encoder.encodeToString(passFieldPassword.getText().getBytes()) + "\n");
                 writer.close();
                 labelAvisoRegisto.setText("Registado com sucesso");
                 labelAvisoRegisto.setStyle("-fx-text-fill: green");
@@ -109,7 +126,7 @@ public class RegistoController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+       
     }    
     
 }
