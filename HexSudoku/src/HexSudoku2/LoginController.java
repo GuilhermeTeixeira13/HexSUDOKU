@@ -109,7 +109,7 @@ public class LoginController {
             ArrayList<String> usernameArray = new ArrayList<String>();
             ArrayList<String> passwordArray = new ArrayList<String>();
 
-            File file = new File("accounts.txt");
+            File file = new File("C:\\Users\\joaob\\OneDrive\\Documentos\\GitHub\\HexSudokuTeste\\HexSudoku\\src\\HexSudoku2\\accounts.txt");
 
             Scanner scan = new Scanner(file);
             Base64.Decoder decoder = Base64.getDecoder();
