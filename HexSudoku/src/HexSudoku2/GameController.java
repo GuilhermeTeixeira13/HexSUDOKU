@@ -395,8 +395,8 @@ public class GameController implements Initializable {
     @FXML
     private void records(ActionEvent event) throws IOException {
         BufferedReader reader;
-        ArrayList<PairsStringString> tenBestTimesDatesByOrder = new ArrayList<>();
-        PairsStringString timeDate;
+        ArrayList<StringStringString> tenBestTimesDatesByOrder = new ArrayList<>();
+        StringStringString timeDate;
         int linesCount = 0;
         try {
             reader = new BufferedReader(new FileReader("Records.txt"));
@@ -414,7 +414,7 @@ public class GameController implements Initializable {
             while (((line = reader.readLine()) != null) && c < limite) {
                 lineContent = line.split(" ");
                 LocalDate date = LocalDate.parse(lineContent[1]);
-                timeDate = new PairsStringString(lineContent[0], date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+                timeDate = new StringStringString(lineContent[0], date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)), lineContent[2]);
                 tenBestTimesDatesByOrder.add(timeDate);
                 c++;
             }
@@ -423,15 +423,28 @@ public class GameController implements Initializable {
         } catch (FileNotFoundException ex) {
         }
 
-        String recordsString = "";
+       String recordsString = "";
+        
+        int count=0;
         for (int i = 0; i < tenBestTimesDatesByOrder.size(); i++) {
-            recordsString = recordsString + (i + 1) + "º -> " + tenBestTimesDatesByOrder.get(i).time + " " + tenBestTimesDatesByOrder.get(i).date + "\n";
+            if(tenBestTimesDatesByOrder.get(i).user.equals(this.nomeUser)){
+                recordsString = recordsString + (count + 1) + "º -> " + tenBestTimesDatesByOrder.get(i).time + " " + tenBestTimesDatesByOrder.get(i).date + "\n"; 
+                count++;
+            }   
         }
         System.out.println("10 best times:\n" + recordsString);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("YOUR " + tenBestTimesDatesByOrder.size() + " BEST TIMES");
-        alert.setHeaderText(recordsString);
+        
+        if(count != 0 ){
+            alert.setTitle("YOUR " + tenBestTimesDatesByOrder.size() + " BEST TIMES");
+            alert.setHeaderText(recordsString);
+        }
+        else{
+            alert.setTitle("NO RECORDS");
+            alert.setHeaderText("You didnt complete any board yet!");
+        }
+    
         alert.showAndWait();
     }
 }

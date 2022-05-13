@@ -47,7 +47,7 @@ public class CorrectAnswerController implements Initializable {
     String content;
 
     StringBuilder stringBuilder;
-    ArrayList<PairsStringString> tenBestTimesDatesByOrder = new ArrayList<>();
+    ArrayList<StringStringString> tenBestTimesDatesByOrder = new ArrayList<>();
 
     private Stage stage;
     private Scene scene;
@@ -85,7 +85,7 @@ public class CorrectAnswerController implements Initializable {
     public CorrectAnswerController(String time, String username) throws IOException {
         this.time = time;
         this.userName = username;
-        PairsStringString timeDate;
+        StringStringString timeDate;
         BufferedReader reader;
         int linesCount = 1;
         try {
@@ -101,7 +101,7 @@ public class CorrectAnswerController implements Initializable {
             reader.close();
 
             this.content = stringBuilder.toString();
-            this.content = this.content + this.time + " " + LocalDate.now().toString();
+            this.content = this.content + this.time + " " + LocalDate.now().toString()+ " " + username;
 
             String fileContent[] = this.content.split("\n");
             Arrays.sort(fileContent);
@@ -123,7 +123,7 @@ public class CorrectAnswerController implements Initializable {
             while (((line = reader.readLine()) != null) && c < limite) {
                 lineContent = line.split(" ");
                 LocalDate date = LocalDate.parse(lineContent[1]);      
-                timeDate = new PairsStringString(lineContent[0], date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+                timeDate = new StringStringString(lineContent[0], date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)), lineContent[2]);
                 tenBestTimesDatesByOrder.add(timeDate);
                 c++;
             }
@@ -136,14 +136,27 @@ public class CorrectAnswerController implements Initializable {
     @FXML
     private void records(ActionEvent event) throws IOException {
         String recordsString = "";
+        
+        int count=0;
         for (int i = 0; i < tenBestTimesDatesByOrder.size(); i++) {
-            recordsString = recordsString + (i + 1) + "º -> " + tenBestTimesDatesByOrder.get(i).time + " " + tenBestTimesDatesByOrder.get(i).date +"\n"; 
+            if(tenBestTimesDatesByOrder.get(i).user.equals(this.userName)){
+                recordsString = recordsString + (count + 1) + "º -> " + tenBestTimesDatesByOrder.get(i).time + " " + tenBestTimesDatesByOrder.get(i).date + "\n"; 
+                count++;
+            }   
         }
         System.out.println("10 best times:\n" + recordsString);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("YOUR " + tenBestTimesDatesByOrder.size() + " BEST TIMES");
-        alert.setHeaderText(recordsString);
+        
+        if(count != 0 ){
+            alert.setTitle("YOUR " + tenBestTimesDatesByOrder.size() + " BEST TIMES");
+            alert.setHeaderText(recordsString);
+        }
+        else{
+            alert.setTitle("NO RECORDS");
+            alert.setHeaderText("You didnt complete any board yet!");
+        }
+    
         alert.showAndWait();
     }
     
