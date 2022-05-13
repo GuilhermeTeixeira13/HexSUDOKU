@@ -89,7 +89,7 @@ public class CorrectAnswerController implements Initializable {
         BufferedReader reader;
         int linesCount = 1;
         try {
-            reader = new BufferedReader(new FileReader("Records.txt"));
+            reader = new BufferedReader(new FileReader("C:\\Users\\joaob\\OneDrive\\Documentos\\GitHub\\HexSudokuTeste\\HexSudoku\\src\\HexSudoku2\\Records.txt"));
             this.stringBuilder = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {
