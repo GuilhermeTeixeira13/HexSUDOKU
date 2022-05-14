@@ -144,7 +144,7 @@ public class DificuldadeController {
         String recordsString = "";
         
         int count=0;
-        for (int i = 0; i < BestTimesDatesByOrder.size(); i++) {
+        for (int i = 0; i < BestTimesDatesByOrder.size() && i < 10; i++) {
             if(BestTimesDatesByOrder.get(i).user.equals(this.username)){
                 recordsString = recordsString + (count + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + "\n"; 
                 count++;
