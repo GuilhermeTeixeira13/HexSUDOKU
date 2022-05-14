@@ -45,9 +45,10 @@ public class CorrectAnswerController implements Initializable {
     String time;
     String userName;
     String content;
+    int dif;
 
     StringBuilder stringBuilder;
-    ArrayList<StringStringString> BestTimesDatesByOrder = new ArrayList<>();
+    ArrayList<timeDateNameDif> BestTimesDatesByOrder = new ArrayList<>();
 
     private Stage stage;
     private Scene scene;
@@ -62,39 +63,32 @@ public class CorrectAnswerController implements Initializable {
         labeltime.setText(this.time);
 
         LocalTime timeMade = LocalTime.parse(this.time, DateTimeFormatter.ofPattern("HH:mm:ss"));
-        
-        ArrayList<String> melhoresTemposUser = new ArrayList<>();
-        for (int i = 0; i < BestTimesDatesByOrder.size(); i++) {
-            if (BestTimesDatesByOrder.get(i).user.equals(this.userName)) {
-                melhoresTemposUser.add(BestTimesDatesByOrder.get(i).time);
-            }
-        }
-        
-        System.out.println(melhoresTemposUser);
 
-        if (melhoresTemposUser.size() == 1) {
-            if (timeMade.isBefore(LocalTime.parse(melhoresTemposUser.get(1), DateTimeFormatter.ofPattern("HH:mm:ss"))) || timeMade.compareTo(LocalTime.parse(melhoresTemposUser.get(0), DateTimeFormatter.ofPattern("HH:mm:ss"))) == 0) {
-                LabelNewRecord.setVisible(true);
-                System.out.println("New record set! --> " + this.time);
-            } else {
-                System.out.println("aqui1");
-                LabelNewRecord.setVisible(false);
-            }
-        } else {
-            if (timeMade.isBefore(LocalTime.parse(melhoresTemposUser.get(1), DateTimeFormatter.ofPattern("HH:mm:ss")))) {
-                LabelNewRecord.setVisible(true);
-                System.out.println("New record set! --> " + this.time);
-            } else {
-                System.out.println("aqui2");
-                LabelNewRecord.setVisible(false);
+        String bestTimeDif = "";
+
+        for (int i = 0; i < BestTimesDatesByOrder.size(); i++) {
+            if (BestTimesDatesByOrder.get(i).user.equals(this.userName) && BestTimesDatesByOrder.get(i).dif.equals(String.valueOf(this.dif))) {
+                bestTimeDif = BestTimesDatesByOrder.get(i).time;
+                break;
             }
         }
+
+        System.out.println("bestTimeDif->" + bestTimeDif);
+
+        if (timeMade.compareTo(LocalTime.parse(bestTimeDif, DateTimeFormatter.ofPattern("HH:mm:ss"))) == 0) {
+            System.out.println("New record set! --> " + this.time);
+            LabelNewRecord.setVisible(true);
+        } else {
+            LabelNewRecord.setVisible(false);
+        }
+
     }
 
-    public CorrectAnswerController(String time, String username) throws IOException {
+    public CorrectAnswerController(String time, String username, int dif) throws IOException {
         this.time = time;
         this.userName = username;
-        StringStringString timeDate;
+        this.dif = dif;
+        timeDateNameDif timeDateNameDif;
         BufferedReader reader;
         int linesCount = 1;
         try {
@@ -110,7 +104,7 @@ public class CorrectAnswerController implements Initializable {
             reader.close();
 
             this.content = stringBuilder.toString();
-            this.content = this.content + this.time + " " + LocalDate.now().toString() + " " + username;
+            this.content = this.content + this.time + " " + LocalDate.now().toString() + " " + username + " " + dif;
 
             String fileContent[] = this.content.split("\n");
             Arrays.sort(fileContent);
@@ -131,8 +125,8 @@ public class CorrectAnswerController implements Initializable {
             while (((line = reader.readLine()) != null)) {
                 lineContent = line.split(" ");
                 LocalDate date = LocalDate.parse(lineContent[1]);
-                timeDate = new StringStringString(lineContent[0], date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)), lineContent[2]);
-                BestTimesDatesByOrder.add(timeDate);
+                timeDateNameDif = new timeDateNameDif(lineContent[0], date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)), lineContent[2], lineContent[3]);
+                BestTimesDatesByOrder.add(timeDateNameDif);
                 c++;
             }
             reader.close();
@@ -145,19 +139,54 @@ public class CorrectAnswerController implements Initializable {
     private void records(ActionEvent event) throws IOException {
         String recordsString = "";
 
-        int count=0;
-        for (int i = 0; i < BestTimesDatesByOrder.size() && i < 10; i++) {
-            if(BestTimesDatesByOrder.get(i).user.equals(this.userName)){
-                recordsString = recordsString + (count + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + "\n"; 
-                count++;
-            }   
+        int countFaceis = 0;
+        recordsString = "FÁCIL\n";
+        for (int i = 0; i < BestTimesDatesByOrder.size() && countFaceis < 3; i++) {
+            if (BestTimesDatesByOrder.get(i).user.equals(this.userName)) {
+                if (BestTimesDatesByOrder.get(i).dif.equals("1")) {
+                    recordsString = recordsString + (countFaceis + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + " -> Dif: EASY\n";
+                    countFaceis++;
+                }
+            }
         }
-        System.out.println("10 best times:\n" + recordsString);
+        if (countFaceis == 0) {
+            recordsString = recordsString + "You didnt complete any easy board yet!\n";
+        }
+
+        int countMedios = 0;
+        recordsString = recordsString + "---------------------------------------------------\nMEDIUM\n";
+        for (int i = 0; i < BestTimesDatesByOrder.size() && countMedios < 3; i++) {
+            if (BestTimesDatesByOrder.get(i).user.equals(this.userName)) {
+                if (BestTimesDatesByOrder.get(i).dif.equals("2")) {
+                    recordsString = recordsString + (countMedios + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + " -> Dif: MEDIUM\n";
+                    countMedios++;
+                }
+            }
+        }
+        if (countMedios == 0) {
+            recordsString = recordsString + "You didnt complete any medium board yet!\n";
+        }
+
+        int countDificeis = 0;
+        recordsString = recordsString + "---------------------------------------------------\nHARD\n";
+        for (int i = 0; i < BestTimesDatesByOrder.size() && countDificeis < 3; i++) {
+            if (BestTimesDatesByOrder.get(i).user.equals(this.userName)) {
+                if (BestTimesDatesByOrder.get(i).dif.equals("3")) {
+                    recordsString = recordsString + (countDificeis + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + " -> Dif: HARD\n";
+                    countDificeis++;
+                }
+            }
+        }
+        if (countDificeis == 0) {
+            recordsString = recordsString + "You didnt complete any hard board yet!\n";
+        }
+        System.out.println("\n10 best times:\n" + recordsString);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-        if (count != 0) {
-            alert.setTitle("YOUR " + count + " BEST TIMES");
+        int countTotal = countFaceis + countMedios + countDificeis;
+        if (countTotal != 0) {
+            alert.setTitle("YOUR " + countTotal + " BEST TIMES");
             alert.setHeaderText(recordsString);
         } else {
             alert.setTitle("NO RECORDS");

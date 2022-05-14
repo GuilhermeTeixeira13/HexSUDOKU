@@ -114,8 +114,8 @@ public class DificuldadeController {
     @FXML
     private void records(ActionEvent event) throws IOException {
         BufferedReader reader;
-        ArrayList<StringStringString> BestTimesDatesByOrder = new ArrayList<>();
-        StringStringString timeDate;
+        ArrayList<timeDateNameDif> BestTimesDatesByOrder = new ArrayList<>();
+        timeDateNameDif timeDateNameDif;
         int linesCount = 0;
         try {
             reader = new BufferedReader(new FileReader("Records.txt"));
@@ -132,8 +132,8 @@ public class DificuldadeController {
             while ((line = reader.readLine()) != null) {
                 lineContent = line.split(" ");
                 LocalDate date = LocalDate.parse(lineContent[1]);
-                timeDate = new StringStringString(lineContent[0], date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)), lineContent[2]);
-                BestTimesDatesByOrder.add(timeDate);
+                timeDateNameDif = new timeDateNameDif(lineContent[0], date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)), lineContent[2], lineContent[3]);
+                BestTimesDatesByOrder.add(timeDateNameDif);
                 c++;
             }
             reader.close();
@@ -143,19 +143,55 @@ public class DificuldadeController {
 
         String recordsString = "";
         
-        int count=0;
-        for (int i = 0; i < BestTimesDatesByOrder.size() && i < 10; i++) {
-            if(BestTimesDatesByOrder.get(i).user.equals(this.username)){
-                recordsString = recordsString + (count + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + "\n"; 
-                count++;
-            }   
+        int countFaceis = 0;
+        recordsString = "FÁCIL\n";
+        for (int i = 0; i < BestTimesDatesByOrder.size() && countFaceis < 3; i++) {
+            if (BestTimesDatesByOrder.get(i).user.equals(this.username)) {
+                if (BestTimesDatesByOrder.get(i).dif.equals("1")) {
+                    recordsString = recordsString + (countFaceis + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + " -> Dif: EASY\n";
+                    countFaceis++;
+                }
+            }
         }
-        System.out.println("10 best times:\n" + recordsString);
+        if (countFaceis == 0) {
+            recordsString = recordsString + "You didnt complete any easy board yet!\n";
+        }
+
+        int countMedios = 0;
+        recordsString = recordsString + "---------------------------------------------------\nMEDIUM\n";
+        for (int i = 0; i < BestTimesDatesByOrder.size() && countMedios < 3; i++) {
+            if (BestTimesDatesByOrder.get(i).user.equals(this.username)) {
+                if (BestTimesDatesByOrder.get(i).dif.equals("2")) {
+                    recordsString = recordsString + (countMedios + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + " -> Dif: MEDIUM\n";
+                    countMedios++;
+                }
+            }
+        }
+        if (countMedios == 0) {
+            recordsString = recordsString + "You didnt complete any medium board yet!\n";
+        }
+
+        int countDificeis = 0;
+        recordsString = recordsString + "---------------------------------------------------\nHARD\n";
+        for (int i = 0; i < BestTimesDatesByOrder.size() && countDificeis < 3; i++) {
+            if (BestTimesDatesByOrder.get(i).user.equals(this.username)) {
+                if (BestTimesDatesByOrder.get(i).dif.equals("3")) {
+                    recordsString = recordsString + (countDificeis + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + " -> Dif: HARD\n";
+                    countDificeis++;
+                }
+            }
+        }
+        if(countDificeis == 0)
+            recordsString = recordsString + "You didnt complete any hard board yet!\n";
+
+        
+        System.out.println("\n10 best times:\n" + recordsString);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         
-        if(count > 0 ){
-            alert.setTitle("YOUR " + count + " BEST TIMES");
+        int countTotal = countFaceis + countMedios + countDificeis;
+        if(countTotal > 0 ){
+            alert.setTitle("YOUR " + countTotal + " BEST TIMES");
             alert.setHeaderText(recordsString);
         }
         else{
