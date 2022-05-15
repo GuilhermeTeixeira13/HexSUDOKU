@@ -144,7 +144,7 @@ public class DificuldadeController {
         String recordsString = "";
         
         int countFaceis = 0;
-        recordsString = "FÁCIL\n";
+        recordsString = "EASY\n";
         for (int i = 0; i < BestTimesDatesByOrder.size() && countFaceis < 3; i++) {
             if (BestTimesDatesByOrder.get(i).user.equals(this.username)) {
                 if (BestTimesDatesByOrder.get(i).dif.equals("1")) {
