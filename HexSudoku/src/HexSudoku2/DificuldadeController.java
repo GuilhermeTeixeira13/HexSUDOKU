@@ -148,7 +148,7 @@ public class DificuldadeController {
         for (int i = 0; i < BestTimesDatesByOrder.size() && countFaceis < 3; i++) {
             if (BestTimesDatesByOrder.get(i).user.equals(this.username)) {
                 if (BestTimesDatesByOrder.get(i).dif.equals("1")) {
-                    recordsString = recordsString + (countFaceis + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + " -> Dif: EASY\n";
+                    recordsString = recordsString + (countFaceis + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + "\n";
                     countFaceis++;
                 }
             }
@@ -162,7 +162,7 @@ public class DificuldadeController {
         for (int i = 0; i < BestTimesDatesByOrder.size() && countMedios < 3; i++) {
             if (BestTimesDatesByOrder.get(i).user.equals(this.username)) {
                 if (BestTimesDatesByOrder.get(i).dif.equals("2")) {
-                    recordsString = recordsString + (countMedios + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + " -> Dif: MEDIUM\n";
+                    recordsString = recordsString + (countMedios + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + "\n";
                     countMedios++;
                 }
             }
@@ -176,7 +176,7 @@ public class DificuldadeController {
         for (int i = 0; i < BestTimesDatesByOrder.size() && countDificeis < 3; i++) {
             if (BestTimesDatesByOrder.get(i).user.equals(this.username)) {
                 if (BestTimesDatesByOrder.get(i).dif.equals("3")) {
-                    recordsString = recordsString + (countDificeis + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + " -> Dif: HARD\n";
+                    recordsString = recordsString + (countDificeis + 1) + "º -> " + BestTimesDatesByOrder.get(i).time + " " + BestTimesDatesByOrder.get(i).date + "\n";
                     countDificeis++;
                 }
             }
@@ -191,7 +191,7 @@ public class DificuldadeController {
         
         int countTotal = countFaceis + countMedios + countDificeis;
         if(countTotal > 0 ){
-            alert.setTitle("YOUR " + countTotal + " BEST TIMES");
+            alert.setTitle("RECORDS");
             alert.setHeaderText(recordsString);
         }
         else{
