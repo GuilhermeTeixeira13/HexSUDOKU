@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="498.0" style="-fx-background-color: rgb(186, 222, 252);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HexSudoku2.DificuldadeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="498.0" style="-fx-background-color: rgb(186, 222, 252);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HexSudoku.DificuldadeController">
    <center>
       <GridPane prefHeight="300.0" prefWidth="525.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -39,7 +39,7 @@
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btnLogOut" mnemonicParsing="false" onAction="#logOutAction" prefHeight="38.0" prefWidth="134.0" style="-fx-background-color: rgb(82, 82, 82); -fx-border-color: red; -fx-border-width: 2px;" text="LOG OUT" textFill="WHITE" GridPane.columnIndex="2">
+            <Button fx:id="btnLogOut" mnemonicParsing="false" onAction="#logOutAction" prefHeight="1.0" prefWidth="147.0" style="-fx-background-color: rgb(82, 82, 82); -fx-border-color: red; -fx-border-width: 2px;" text="LOG OUT" textFill="WHITE" GridPane.columnIndex="2">
                <font>
                   <Font name="Arial Black" size="15.0" />
                </font>
@@ -61,12 +61,12 @@
       </Label>
    </top>
    <bottom>
-      <Button fx:id="btnRecord" mnemonicParsing="false" onAction="#records" prefHeight="34.0" prefWidth="165.0" style="-fx-background-color: rgb(82, 82, 82);" text="RECORDS" textFill="WHITE" BorderPane.alignment="CENTER">
+      <Button fx:id="btnRecord" mnemonicParsing="false" onAction="#records" prefHeight="41.0" prefWidth="147.0" style="-fx-background-color: rgb(82, 82, 82); -fx-border-width: 2px; -fx-border-color: white;" text="RECORDS" textFill="WHITE" BorderPane.alignment="CENTER">
          <font>
             <Font name="Arial Black" size="15.0" />
          </font>
          <BorderPane.margin>
-            <Insets bottom="25.0" left="-150.0" />
+            <Insets bottom="25.0" left="-150.0" top="5.0" />
          </BorderPane.margin>
       </Button>
    </bottom>

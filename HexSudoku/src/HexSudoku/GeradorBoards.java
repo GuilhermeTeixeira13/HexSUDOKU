@@ -1,5 +1,5 @@
 /* Java program for Sudoku generator */
-package HexSudoku2;
+package HexSudoku;
 
 import java.lang.*;
 

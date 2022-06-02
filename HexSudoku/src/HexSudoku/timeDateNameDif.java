@@ -1,4 +1,4 @@
-package HexSudoku2;
+package HexSudoku;
 
 public class timeDateNameDif {
     String time;

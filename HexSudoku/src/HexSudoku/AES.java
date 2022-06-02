@@ -1,4 +1,4 @@
-package HexSudoku2;
+package HexSudoku;
 
 import java.security.Key;
 
